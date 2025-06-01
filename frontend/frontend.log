@@ -1,0 +1,635 @@
+
+> monthly-report-frontend@1.0.0 start
+> PORT=3456 react-scripts start
+
+(node:36121) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:36121) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+Compiled successfully!
+
+You can now view monthly-report-frontend in the browser.
+
+  Local:            http://localhost:3456
+  On Your Network:  http://192.168.68.61:3456
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully
+Files successfully emitted, waiting for typecheck results...
+Issues checking in progress...
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/App.tsx:48:14
+TS2304: Cannot find name 'ToastContainer'.
+    46 |
+    47 |             {/* トースト通知 */}
+  > 48 |             <ToastContainer
+       |              ^^^^^^^^^^^^^^
+    49 |               position="top-right"
+    50 |               autoClose={5000}
+    51 |               hideProgressBar={false}
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+No issues found.
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+No issues found.
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/Dashboard.tsx:38:30
+TS2304: Cannot find name 'axios'.
+    36 |     'userStats',
+    37 |     async () => {
+  > 38 |       const response = await axios.get('/users/stats');
+       |                              ^^^^^
+    39 |       return response.data;
+    40 |     },
+    41 |     {
+
+ERROR in src/pages/Dashboard.tsx:50:30
+TS2304: Cannot find name 'axios'.
+    48 |     'recentReports',
+    49 |     async () => {
+  > 50 |       const response = await axios.get('/reports', {
+       |                              ^^^^^
+    51 |         params: { page: 1, size: 5 },
+    52 |       });
+    53 |       return response.data.items;
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/Dashboard.tsx:50:30
+TS2304: Cannot find name 'axios'.
+    48 |     'recentReports',
+    49 |     async () => {
+  > 50 |       const response = await axios.get('/reports', {
+       |                              ^^^^^
+    51 |         params: { page: 1, size: 5 },
+    52 |       });
+    53 |       return response.data.items;
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Files successfully emitted, waiting for typecheck results...
+Issues checking in progress...
+ERROR in src/pages/ConversationalReport.tsx:23:50
+TS2304: Cannot find name 'SpeechRecognition'.
+    21 |   const [isRecording, setIsRecording] = useState(false);
+    22 |   const [isLoading, setIsLoading] = useState(false);
+  > 23 |   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+       |                                                  ^^^^^^^^^^^^^^^^^
+    24 |   const [isListening, setIsListening] = useState(false);
+    25 |
+    26 |   // 音声認識の初期化
+
+ERROR in src/pages/ConversationalReport.tsx:36:46
+TS2552: Cannot find name 'SpeechRecognitionEvent'. Did you mean 'SpeechRecognitionResult'?
+    34 |       recognitionInstance.lang = 'ja-JP';
+    35 |       
+  > 36 |       recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
+       |                                              ^^^^^^^^^^^^^^^^^^^^^^
+    37 |         const transcript = event.results[0][0].transcript;
+    38 |         setCurrentAnswer(prev => prev + transcript);
+    39 |       };
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:23:50
+TS2304: Cannot find name 'SpeechRecognition'.
+    21 |   const [isRecording, setIsRecording] = useState(false);
+    22 |   const [isLoading, setIsLoading] = useState(false);
+  > 23 |   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+       |                                                  ^^^^^^^^^^^^^^^^^
+    24 |   const [isListening, setIsListening] = useState(false);
+    25 |
+    26 |   // 音声認識の初期化
+
+ERROR in src/pages/ConversationalReport.tsx:36:46
+TS2552: Cannot find name 'SpeechRecognitionEvent'. Did you mean 'SpeechRecognitionResult'?
+    34 |       recognitionInstance.lang = 'ja-JP';
+    35 |       
+  > 36 |       recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
+       |                                              ^^^^^^^^^^^^^^^^^^^^^^
+    37 |         const transcript = event.results[0][0].transcript;
+    38 |         setCurrentAnswer(prev => prev + transcript);
+    39 |       };
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:23:50
+TS2304: Cannot find name 'SpeechRecognition'.
+    21 |   const [isRecording, setIsRecording] = useState(false);
+    22 |   const [isLoading, setIsLoading] = useState(false);
+  > 23 |   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+       |                                                  ^^^^^^^^^^^^^^^^^
+    24 |   const [isListening, setIsListening] = useState(false);
+    25 |
+    26 |   // 音声認識の初期化
+
+ERROR in src/pages/ConversationalReport.tsx:36:46
+TS2552: Cannot find name 'SpeechRecognitionEvent'. Did you mean 'SpeechRecognitionResult'?
+    34 |       recognitionInstance.lang = 'ja-JP';
+    35 |       
+  > 36 |       recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
+       |                                              ^^^^^^^^^^^^^^^^^^^^^^
+    37 |         const transcript = event.results[0][0].transcript;
+    38 |         setCurrentAnswer(prev => prev + transcript);
+    39 |       };
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Files successfully emitted, waiting for typecheck results...
+Issues checking in progress...
+ERROR in src/pages/ConversationalReport.tsx:36:46
+TS2552: Cannot find name 'SpeechRecognitionEvent'. Did you mean 'SpeechRecognitionResult'?
+    34 |       recognitionInstance.lang = 'ja-JP';
+    35 |       
+  > 36 |       recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
+       |                                              ^^^^^^^^^^^^^^^^^^^^^^
+    37 |         const transcript = event.results[0][0].transcript;
+    38 |         setCurrentAnswer(prev => prev + transcript);
+    39 |       };
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+No issues found.
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/ConversationalReport.tsx
+Syntax error: Missing catch or finally clause. (30:4) (30:4)
+ERROR in ./src/pages/ConversationalReport.tsx
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/src/pages/ConversationalReport.tsx: Missing catch or finally clause. (30:4)
+
+  28 |   // 音声認識の初期化
+  29 |   useEffect(() => {
+> 30 |     try {
+     |     ^
+  31 |       if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  32 |         const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+  33 |         const recognitionInstance = new SpeechRecognition();
+    at constructor (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:363:19)
+    at TypeScriptParserMixin.raise (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:6609:19)
+    at TypeScriptParserMixin.parseTryStatement (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:13116:12)
+    at TypeScriptParserMixin.parseStatementContent (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12695:21)
+    at TypeScriptParserMixin.parseStatementContent (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9453:18)
+    at TypeScriptParserMixin.parseStatementLike (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12658:17)
+    at TypeScriptParserMixin.parseStatementListItem (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12638:17)
+    at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:13208:61)
+    at TypeScriptParserMixin.parseBlockBody (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:13201:10)
+    at TypeScriptParserMixin.parseBlock (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:13189:10)
+    at TypeScriptParserMixin.parseFunctionBody (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12019:24)
+    at TypeScriptParserMixin.parseArrowExpression (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11994:10)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11604:12)
+    at TypeScriptParserMixin.parseExprAtom (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11246:23)
+    at TypeScriptParserMixin.parseExprAtom (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:4776:20)
+    at TypeScriptParserMixin.parseExprSubscripts (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10996:23)
+    at TypeScriptParserMixin.parseUpdate (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10981:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10961:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9778:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10814:61)
+    at TypeScriptParserMixin.parseExprOps (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10819:23)
+    at TypeScriptParserMixin.parseMaybeConditional (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10796:23)
+    at TypeScriptParserMixin.parseMaybeAssign (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10749:21)
+    at TypeScriptParserMixin.parseMaybeAssign (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9727:20)
+    at /Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10718:39
+    at TypeScriptParserMixin.allowInAnd (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12345:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10718:17)
+    at TypeScriptParserMixin.parseExprListItem (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12094:18)
+    at TypeScriptParserMixin.parseCallExpressionArguments (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11167:22)
+    at TypeScriptParserMixin.parseCoverCallAndAsyncArrowHead (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11101:29)
+    at TypeScriptParserMixin.parseSubscript (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11035:19)
+    at TypeScriptParserMixin.parseSubscript (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9283:18)
+    at TypeScriptParserMixin.parseSubscripts (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11009:19)
+    at TypeScriptParserMixin.parseExprSubscripts (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:11000:17)
+    at TypeScriptParserMixin.parseUpdate (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10981:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10961:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9778:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10814:61)
+    at TypeScriptParserMixin.parseExprOps (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10819:23)
+    at TypeScriptParserMixin.parseMaybeConditional (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10796:23)
+    at TypeScriptParserMixin.parseMaybeAssign (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10749:21)
+    at TypeScriptParserMixin.parseMaybeAssign (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9727:20)
+    at TypeScriptParserMixin.parseExpressionBase (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10702:23)
+    at /Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10698:39
+    at TypeScriptParserMixin.allowInAnd (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12340:16)
+    at TypeScriptParserMixin.parseExpression (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:10698:17)
+    at TypeScriptParserMixin.parseStatementContent (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12787:23)
+    at TypeScriptParserMixin.parseStatementContent (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:9453:18)
+    at TypeScriptParserMixin.parseStatementLike (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12658:17)
+    at TypeScriptParserMixin.parseStatementListItem (/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/frontend/node_modules/@babel/parser/lib/index.js:12638:17)
+
+ERROR in [eslint] 
+src/pages/ConversationalReport.tsx
+  Line 30:4:  Parsing error: Missing catch or finally clause. (30:4)
+
+webpack compiled with 2 errors
+ERROR in src/pages/ConversationalReport.tsx:153:4
+TS1472: 'catch' or 'finally' expected.
+    151 |       setRecognition(recognitionInstance);
+    152 |     }
+  > 153 |   }, [isListening]);
+        |    ^
+    154 |
+    155 |   // 対話セッションの開始
+    156 |   const startConversation = async () => {
+
+ERROR in src/pages/ConversationalReport.tsx:153:19
+TS1005: ';' expected.
+    151 |       setRecognition(recognitionInstance);
+    152 |     }
+  > 153 |   }, [isListening]);
+        |                   ^
+    154 |
+    155 |   // 対話セッションの開始
+    156 |   const startConversation = async () => {
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:120:11
+TS2552: Cannot find name 'setLastResultIndex'. Did you mean 'lastResultIndexRef'?
+    118 |           setIsRecording(false);
+    119 |           setInterimText('');
+  > 120 |           setLastResultIndex(0);
+        |           ^^^^^^^^^^^^^^^^^^
+    121 |           toast.error('マイクへのアクセスが拒否されました');
+    122 |           return;
+    123 |         }
+
+ERROR in src/pages/ConversationalReport.tsx:142:17
+TS2552: Cannot find name 'setLastResultIndex'. Did you mean 'lastResultIndexRef'?
+    140 |                 setIsRecording(false);
+    141 |                 setInterimText('');
+  > 142 |                 setLastResultIndex(0);
+        |                 ^^^^^^^^^^^^^^^^^^
+    143 |               }
+    144 |             }
+    145 |           }, 500);
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:121:11
+TS2552: Cannot find name 'setLastResultIndex'. Did you mean 'lastResultIndexRef'?
+    119 |           setIsRecording(false);
+    120 |           setInterimText('');
+  > 121 |           setLastResultIndex(0);
+        |           ^^^^^^^^^^^^^^^^^^
+    122 |           toast.error('マイクへのアクセスが拒否されました');
+    123 |           return;
+    124 |         }
+
+ERROR in src/pages/ConversationalReport.tsx:143:17
+TS2552: Cannot find name 'setLastResultIndex'. Did you mean 'lastResultIndexRef'?
+    141 |                 setIsRecording(false);
+    142 |                 setInterimText('');
+  > 143 |                 setLastResultIndex(0);
+        |                 ^^^^^^^^^^^^^^^^^^
+    144 |               }
+    145 |             }
+    146 |           }, 500);
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:144:17
+TS2552: Cannot find name 'setLastResultIndex'. Did you mean 'lastResultIndexRef'?
+    142 |                 setIsRecording(false);
+    143 |                 setInterimText('');
+  > 144 |                 setLastResultIndex(0);
+        |                 ^^^^^^^^^^^^^^^^^^
+    145 |               }
+    146 |             }
+    147 |           }, 500);
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:50:22
+TS2304: Cannot find name 'lastResultIndexRef'.
+    48 |         
+    49 |         // lastResultIndex以降の新しい結果のみを処理
+  > 50 |         for (let i = lastResultIndexRef.current; i < event.results.length; i++) {
+       |                      ^^^^^^^^^^^^^^^^^^
+    51 |           const result = event.results[i];
+    52 |           const transcript = result[0].transcript.trim();
+    53 |           
+
+ERROR in src/pages/ConversationalReport.tsx:56:13
+TS2304: Cannot find name 'lastResultIndexRef'.
+    54 |           if (result.isFinal && transcript) {
+    55 |             newFinalTranscript += (newFinalTranscript ? ' ' : '') + transcript;
+  > 56 |             lastResultIndexRef.current = i + 1;
+       |             ^^^^^^^^^^^^^^^^^^
+    57 |             console.log(`NEW Final result ${i}:`, transcript);
+    58 |           }
+    59 |         }
+
+ERROR in src/pages/ConversationalReport.tsx:230:7
+TS2304: Cannot find name 'lastResultIndexRef'.
+    228 |     console.log('ユーザーが音声認識を開始しました');
+    229 |     try {
+  > 230 |       lastResultIndexRef.current = 0;
+        |       ^^^^^^^^^^^^^^^^^^
+    231 |       processedResultsRef.current.clear();
+    232 |       setInterimText('');
+    233 |       isUserStoppedRef.current = false;
+
+ERROR in src/pages/ConversationalReport.tsx:231:7
+TS2304: Cannot find name 'processedResultsRef'.
+    229 |     try {
+    230 |       lastResultIndexRef.current = 0;
+  > 231 |       processedResultsRef.current.clear();
+        |       ^^^^^^^^^^^^^^^^^^^
+    232 |       setInterimText('');
+    233 |       isUserStoppedRef.current = false;
+    234 |       recognitionInstanceRef.current.start();
+
+ERROR in src/pages/ConversationalReport.tsx:270:7
+TS2304: Cannot find name 'lastResultIndexRef'.
+    268 |       setCurrentAnswer('');
+    269 |       setInterimText('');
+  > 270 |       lastResultIndexRef.current = 0;
+        |       ^^^^^^^^^^^^^^^^^^
+    271 |       processedResultsRef.current.clear();
+    272 |       
+    273 |       // 音声認識が動作中の場合は停止
+
+ERROR in src/pages/ConversationalReport.tsx:271:7
+TS2304: Cannot find name 'processedResultsRef'.
+    269 |       setInterimText('');
+    270 |       lastResultIndexRef.current = 0;
+  > 271 |       processedResultsRef.current.clear();
+        |       ^^^^^^^^^^^^^^^^^^^
+    272 |       
+    273 |       // 音声認識が動作中の場合は停止
+    274 |       if (isListening) {
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:217:7
+TS2304: Cannot find name 'lastResultIndexRef'.
+    215 |     console.log('ユーザーが音声認識を開始しました');
+    216 |     try {
+  > 217 |       lastResultIndexRef.current = 0;
+        |       ^^^^^^^^^^^^^^^^^^
+    218 |       processedResultsRef.current.clear();
+    219 |       setInterimText('');
+    220 |       isUserStoppedRef.current = false;
+
+ERROR in src/pages/ConversationalReport.tsx:218:7
+TS2304: Cannot find name 'processedResultsRef'.
+    216 |     try {
+    217 |       lastResultIndexRef.current = 0;
+  > 218 |       processedResultsRef.current.clear();
+        |       ^^^^^^^^^^^^^^^^^^^
+    219 |       setInterimText('');
+    220 |       isUserStoppedRef.current = false;
+    221 |       recognitionInstanceRef.current.start();
+
+ERROR in src/pages/ConversationalReport.tsx:257:7
+TS2304: Cannot find name 'lastResultIndexRef'.
+    255 |       setCurrentAnswer('');
+    256 |       setInterimText('');
+  > 257 |       lastResultIndexRef.current = 0;
+        |       ^^^^^^^^^^^^^^^^^^
+    258 |       processedResultsRef.current.clear();
+    259 |       
+    260 |       // 音声認識が動作中の場合は停止
+
+ERROR in src/pages/ConversationalReport.tsx:258:7
+TS2304: Cannot find name 'processedResultsRef'.
+    256 |       setInterimText('');
+    257 |       lastResultIndexRef.current = 0;
+  > 258 |       processedResultsRef.current.clear();
+        |       ^^^^^^^^^^^^^^^^^^^
+    259 |       
+    260 |       // 音声認識が動作中の場合は停止
+    261 |       if (isListening) {
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+ERROR in src/pages/ConversationalReport.tsx:257:7
+TS2304: Cannot find name 'lastResultIndexRef'.
+    255 |       setCurrentAnswer('');
+    256 |       setInterimText('');
+  > 257 |       lastResultIndexRef.current = 0;
+        |       ^^^^^^^^^^^^^^^^^^
+    258 |       processedResultsRef.current.clear();
+    259 |       
+    260 |       // 音声認識が動作中の場合は停止
+
+ERROR in src/pages/ConversationalReport.tsx:258:7
+TS2304: Cannot find name 'processedResultsRef'.
+    256 |       setInterimText('');
+    257 |       lastResultIndexRef.current = 0;
+  > 258 |       processedResultsRef.current.clear();
+        |       ^^^^^^^^^^^^^^^^^^^
+    259 |       
+    260 |       // 音声認識が動作中の場合は停止
+    261 |       if (isListening) {
+
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+No issues found.

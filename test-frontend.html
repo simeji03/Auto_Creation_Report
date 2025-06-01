@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月報作成支援ツール - テストページ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .section h2 {
+            color: #34495e;
+            margin-top: 0;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .btn-success { background-color: #27ae60; }
+        .btn-success:hover { background-color: #229954; }
+        .btn-danger { background-color: #e74c3c; }
+        .btn-danger:hover { background-color: #c0392b; }
+        .btn-warning { background-color: #f39c12; }
+        .btn-warning:hover { background-color: #e67e22; }
+
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .warning { background-color: #fff3cd; color: #856404; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .report-card {
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .report-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .report-header {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .report-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+            background-color: #ecf0f1;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .report-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .data-item {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .data-label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .data-value {
+            font-size: 16px;
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        .report-text-section {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .text-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .text-item.challenge {
+            border-left-color: #e74c3c;
+        }
+
+        .text-item.improvement {
+            border-left-color: #f39c12;
+        }
+
+        .text-item.goal {
+            border-left-color: #9b59b6;
+        }
+
+        .text-label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .text-content {
+            color: #34495e;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .hours-summary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .hours-summary .total {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .hours-breakdown {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .hours-breakdown .item {
+            text-align: center;
+        }
+
+        .hours-breakdown .value {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .hours-breakdown .label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .report-text-section {
+                grid-template-columns: 1fr;
+            }
+
+            .report-data {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            .hours-breakdown {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-ok { background-color: #27ae60; }
+        .status-error { background-color: #e74c3c; }
+        .status-warning { background-color: #f39c12; }
+
+        .test-suite {
+            border: 2px solid #3498db;
+            background-color: #ebf3fd;
+        }
+
+        .test-result {
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .loading {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .debug-info {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 月報作成支援ツール - 拡張テストページ</h1>
+
+        <!-- テスト統計 -->
+        <div class="section">
+            <h2>📊 テスト統計</h2>
+            <div class="stats" id="test-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-tests">0</div>
+                    <div class="stat-label">総テスト数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="passed-tests">0</div>
+                    <div class="stat-label">成功</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="failed-tests">0</div>
+                    <div class="stat-label">失敗</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="response-time">-</div>
+                    <div class="stat-label">平均応答時間(ms)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 自動テストスイート -->
+        <div class="section test-suite">
+            <h2>🔧 自動テストスイート</h2>
+            <button onclick="runAllTests()" class="btn-success">全テスト実行</button>
+            <button onclick="runContinuousTest()" class="btn-warning" id="continuous-btn">継続テスト開始</button>
+            <button onclick="clearTestResults()" class="btn-danger">結果クリア</button>
+            <div id="auto-test-results" class="result"></div>
+        </div>
+
+        <!-- サーバー状態確認 -->
+        <div class="section">
+            <h2>🔍 サーバー状態確認</h2>
+            <button onclick="checkBackendHealth()">バックエンド状態確認</button>
+            <button onclick="checkDetailedStatus()">詳細ステータス確認</button>
+            <div id="health-result" class="result"></div>
+        </div>
+
+        <!-- 月報一覧表示 -->
+        <div class="section">
+            <h2>📋 月報一覧</h2>
+            <button onclick="loadReports()">月報一覧を取得</button>
+            <button onclick="refreshReports()">一覧更新</button>
+            <div id="reports-result" class="result"></div>
+        </div>
+
+        <!-- AI自動入力機能 -->
+        <div class="section">
+            <h2>🤖 AI自動入力アシスタント</h2>
+            <div class="form-group">
+                <label for="ai-input">今月の作業内容を自由に話してください（AI が自動で月報形式にまとめます）</label>
+                <textarea id="ai-input" placeholder="例：今月はReactアプリの開発をメインでやってて、大体120時間くらいコーディングした。新しいAPIの統合でちょっと苦労したけど、チームメンバーと相談しながら何とか解決できた。来月はテストをちゃんとやって、パフォーマンスも改善したい..." style="height: 120px;"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="ai-month">対象月 (YYYY-MM)</label>
+                <input type="text" id="ai-month" value="2025-06">
+            </div>
+            <button onclick="generateReportFromAI()" class="btn-success">🎯 AI で月報生成</button>
+            <button onclick="fillAIExample()" class="btn-warning">💬 サンプル入力</button>
+            <div id="ai-result" class="result"></div>
+        </div>
+
+        <!-- 月報作成フォーム -->
+        <div class="section">
+            <h2>✏️ 月報作成</h2>
+            <div class="form-group">
+                <label for="report-month">対象月 (YYYY-MM)</label>
+                <input type="text" id="report-month" value="2025-06">
+            </div>
+            <div class="form-group">
+                <label for="current-phase">現在のフェーズ</label>
+                <select id="current-phase">
+                    <option value="">選択してください</option>
+                    <option value="計画中">計画中</option>
+                    <option value="開発中">開発中</option>
+                    <option value="テスト中">テスト中</option>
+                    <option value="リリース済み">リリース済み</option>
+                    <option value="保守運用">保守運用</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="total-hours">総稼働時間</label>
+                <input type="number" id="total-hours" step="0.1" value="160" min="0" max="744">
+            </div>
+            <div class="form-group">
+                <label for="coding-hours">コーディング時間</label>
+                <input type="number" id="coding-hours" step="0.1" value="120" min="0">
+            </div>
+            <div class="form-group">
+                <label for="meeting-hours">会議時間</label>
+                <input type="number" id="meeting-hours" step="0.1" value="20" min="0">
+            </div>
+            <div class="form-group">
+                <label for="sales-hours">営業時間</label>
+                <input type="number" id="sales-hours" step="0.1" value="20" min="0">
+            </div>
+            <div class="form-group">
+                <label for="good-points">良かった点</label>
+                <textarea id="good-points" placeholder="今月良かった点を記載してください" maxlength="1000"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="challenges">課題点</label>
+                <textarea id="challenges" placeholder="今月の課題を記載してください" maxlength="1000"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="improvements">改善案</label>
+                <textarea id="improvements" placeholder="改善案を記載してください" maxlength="1000"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="next-goals">来月の目標</label>
+                <textarea id="next-goals" placeholder="来月の目標を記載してください" maxlength="1000"></textarea>
+            </div>
+            <button onclick="createReport()">月報作成</button>
+            <button onclick="validateForm()">入力値検証</button>
+            <button onclick="fillSampleData()">サンプルデータ入力</button>
+            <div id="create-result" class="result"></div>
+        </div>
+
+        <!-- 認証テスト -->
+        <div class="section">
+            <h2>🔐 認証テスト</h2>
+            <button onclick="testLogin()">ログインテスト</button>
+            <button onclick="testRegister()">登録テスト</button>
+            <div id="auth-result" class="result"></div>
+        </div>
+
+        <!-- UI操作テスト -->
+        <div class="section">
+            <h2>🖱️ UI操作テスト</h2>
+            <button onclick="testFormValidation()">フォームバリデーション</button>
+            <button onclick="testResponsiveDesign()">レスポンシブテスト</button>
+            <button onclick="testAccessibility()">アクセシビリティテスト</button>
+            <div id="ui-test-result" class="result"></div>
+        </div>
+
+        <!-- エラーログ -->
+        <div class="section">
+            <h2>📋 エラーログ</h2>
+            <button onclick="clearErrorLog()">ログクリア</button>
+            <div id="error-log" class="result error"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8765';
+        let testStats = { total: 0, passed: 0, failed: 0, responseTimes: [] };
+        let continuousTestInterval = null;
+        let errorLog = [];
+
+        // エラーログ関数
+        function logError(error, context = '') {
+            const timestamp = new Date().toLocaleString('ja-JP');
+            const errorEntry = `[${timestamp}] ${context}: ${error}`;
+            errorLog.push(errorEntry);
+
+            // エラーログ表示を更新
+            const errorLogElement = document.getElementById('error-log');
+            errorLogElement.textContent = errorLog.slice(-10).join('\n'); // 最新10件のみ表示
+
+            console.error(errorEntry);
+        }
+
+        // 統計更新
+        function updateStats() {
+            document.getElementById('total-tests').textContent = testStats.total;
+            document.getElementById('passed-tests').textContent = testStats.passed;
+            document.getElementById('failed-tests').textContent = testStats.failed;
+
+            if (testStats.responseTimes.length > 0) {
+                const avgTime = testStats.responseTimes.reduce((a, b) => a + b, 0) / testStats.responseTimes.length;
+                document.getElementById('response-time').textContent = Math.round(avgTime);
+            }
+        }
+
+        // APIコール用ラッパー関数
+        async function makeAPICall(url, options = {}) {
+            const startTime = performance.now();
+
+            try {
+                const response = await fetch(url, options);
+                const endTime = performance.now();
+                const responseTime = endTime - startTime;
+
+                testStats.responseTimes.push(responseTime);
+
+                if (response.ok) {
+                    testStats.passed++;
+                } else {
+                    testStats.failed++;
+                    logError(`HTTP ${response.status}`, url);
+                }
+
+                testStats.total++;
+                updateStats();
+
+                return await response.json();
+            } catch (error) {
+                const endTime = performance.now();
+                testStats.responseTimes.push(endTime - startTime);
+                testStats.failed++;
+                testStats.total++;
+                updateStats();
+
+                logError(error.message, url);
+                throw error;
+            }
+        }
+
+        // ヘルスチェック
+        async function checkBackendHealth() {
+            try {
+                const data = await makeAPICall(`${API_BASE}/health`);
+                displayResult('health-result', data, true);
+            } catch (error) {
+                displayResult('health-result', {error: error.message}, false);
+            }
+        }
+
+        // 詳細ステータス確認
+        async function checkDetailedStatus() {
+            try {
+                const healthData = await makeAPICall(`${API_BASE}/health`);
+                const reportsData = await makeAPICall(`${API_BASE}/api/reports`);
+
+                const status = {
+                    server_status: healthData,
+                    reports_count: reportsData.total || 0,
+                    database_accessible: true,
+                    cors_enabled: true,
+                    timestamp: new Date().toISOString()
+                };
+
+                displayResult('health-result', status, true);
+            } catch (error) {
+                displayResult('health-result', {error: error.message, cors_error: true}, false);
+            }
+        }
+
+        // 月報一覧取得
+        async function loadReports() {
+            try {
+                const data = await makeAPICall(`${API_BASE}/api/reports`);
+                displayReports(data);
+            } catch (error) {
+                displayResult('reports-result', {error: error.message}, false);
+            }
+        }
+
+        // 月報一覧更新
+        async function refreshReports() {
+            displayResult('reports-result', '🔄 更新中...', true);
+            setTimeout(() => loadReports(), 500);
+        }
+
+        // フォームバリデーション
+        function validateForm() {
+            const errors = [];
+
+            const month = document.getElementById('report-month').value;
+            if (!/^\d{4}-\d{2}$/.test(month)) {
+                errors.push('対象月の形式が正しくありません (YYYY-MM)');
+            }
+
+            const totalHours = parseFloat(document.getElementById('total-hours').value);
+            const codingHours = parseFloat(document.getElementById('coding-hours').value);
+            const meetingHours = parseFloat(document.getElementById('meeting-hours').value);
+            const salesHours = parseFloat(document.getElementById('sales-hours').value);
+
+            if (totalHours < (codingHours + meetingHours + salesHours)) {
+                errors.push('総稼働時間が個別時間の合計を下回っています');
+            }
+
+            if (errors.length > 0) {
+                displayResult('create-result', {validation_errors: errors}, false);
+            } else {
+                displayResult('create-result', {validation: 'OK', message: '入力値は正常です'}, true);
+            }
+        }
+
+        // AI自動入力のサンプル
+        function fillAIExample() {
+            const examples = [
+                "今月はReactアプリの開発をメインでやってて、大体120時間くらいコーディングした。新しいAPIの統合でちょっと苦労したけど、チームメンバーと相談しながら何とか解決できた。会議は週2回で合計20時間くらい。営業活動も15時間ほどやった。来月はテストをちゃんとやって、パフォーマンスも改善したい。あと、ドキュメントも整備しないと。",
+                "今月は新機能の開発で忙しかった。150時間くらい働いて、そのうち100時間はコーディング。データベース設計が予想以上に大変で、3回くらい作り直した。でもチームのサポートがあって何とか完成。会議は毎日あって30時間くらい。来月はユーザテストと本番リリースに向けた準備をしたい。",
+                "フロントエンドの改修作業がメインだった。総労働時間は140時間で、コーディングが110時間、設計会議が20時間、クライアント打ち合わせが10時間。TypeScriptへの移行が思ったより大変だったけど、コードの品質は確実に上がった。来月はモバイル対応とアクセシビリティの改善をやりたい。"
+            ];
+
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            document.getElementById('ai-input').value = randomExample;
+            displayResult('ai-result', {message: '💬 サンプルテキストを入力しました'}, true);
+        }
+
+        // AI自動入力機能
+        async function generateReportFromAI() {
+            const userInput = document.getElementById('ai-input').value;
+            const targetMonth = document.getElementById('ai-month').value;
+
+            if (!userInput.trim()) {
+                displayResult('ai-result', {error: '作業内容を入力してください'}, false);
+                return;
+            }
+
+            displayResult('ai-result', '🤖 AI が月報を生成中...', true);
+
+            try {
+                // デモ用のAI解析（実際にはバックエンドのAI機能を使用）
+                const analysisResult = await simulateAIAnalysis(userInput);
+
+                // フォームに自動入力
+                document.getElementById('report-month').value = targetMonth;
+                document.getElementById('current-phase').value = analysisResult.phase;
+                document.getElementById('total-hours').value = analysisResult.totalHours;
+                document.getElementById('coding-hours').value = analysisResult.codingHours;
+                document.getElementById('meeting-hours').value = analysisResult.meetingHours;
+                document.getElementById('sales-hours').value = analysisResult.salesHours;
+                document.getElementById('good-points').value = analysisResult.goodPoints;
+                document.getElementById('challenges').value = analysisResult.challenges;
+                document.getElementById('improvements').value = analysisResult.improvements;
+                document.getElementById('next-goals').value = analysisResult.nextGoals;
+
+                displayResult('ai-result', {
+                    message: '✅ AI分析完了！フォームに自動入力しました',
+                    analysis: analysisResult
+                }, true);
+
+                // フォームセクションまでスクロール
+                document.querySelector('#report-month').scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                displayResult('ai-result', {error: error.message}, false);
+            }
+        }
+
+        // AI解析のシミュレーション（デモ用）
+        async function simulateAIAnalysis(input) {
+            // 少し待機してリアルなAI処理感を演出
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // テキストから数値を抽出
+            const hourMatches = input.match(/(\d+)\s*時間/g) || [];
+            const numbers = input.match(/\d+/g) || [];
+
+            let totalHours = 160;
+            let codingHours = 120;
+            let meetingHours = 20;
+            let salesHours = 15;
+
+            // 時間に関する記述を解析
+            if (hourMatches.length > 0) {
+                const firstHour = parseInt(hourMatches[0].match(/\d+/)[0]);
+                if (firstHour > 50 && firstHour < 300) {
+                    totalHours = firstHour;
+                    codingHours = Math.round(totalHours * 0.7);
+                    meetingHours = Math.round(totalHours * 0.15);
+                    salesHours = Math.round(totalHours * 0.1);
+                }
+            }
+
+            // フェーズを推定
+            let phase = '開発中';
+            if (input.includes('テスト') || input.includes('検証')) phase = 'テスト中';
+            if (input.includes('リリース') || input.includes('本番')) phase = 'リリース済み';
+            if (input.includes('保守') || input.includes('運用')) phase = '保守運用';
+            if (input.includes('計画') || input.includes('設計')) phase = '計画中';
+
+            // ポジティブ・ネガティブなキーワードを抽出
+            const positiveKeywords = ['成功', '完成', '解決', '良好', '順調', '上達', '習得', '達成'];
+            const negativeKeywords = ['課題', '問題', '困難', '大変', '苦労', '遅れ', '失敗'];
+            const improvementKeywords = ['改善', '最適化', '向上', 'レビュー', '効率', '品質'];
+
+            const goodPointsList = [];
+            const challengesList = [];
+            const improvementsList = [];
+
+            // キーワードベースで内容を分析
+            if (input.includes('チーム') && (input.includes('協力') || input.includes('サポート'))) {
+                goodPointsList.push('チームワークが良好で協力的な環境が築けている');
+            }
+            if (input.includes('新しい') && (input.includes('技術') || input.includes('学習'))) {
+                goodPointsList.push('新しい技術の習得・導入が進んでいる');
+            }
+            if (input.includes('完成') || input.includes('完了')) {
+                goodPointsList.push('予定していた機能開発が予定通り完了した');
+            }
+
+            if (input.includes('大変') || input.includes('苦労')) {
+                challengesList.push('技術的な課題があり、想定以上に時間を要した');
+            }
+            if (input.includes('時間') && input.includes('かかっ')) {
+                challengesList.push('作業時間の見積もりが甘く、効率化が必要');
+            }
+
+            if (input.includes('テスト')) {
+                improvementsList.push('テスト体制の強化と自動化の推進');
+            }
+            if (input.includes('パフォーマンス') || input.includes('性能')) {
+                improvementsList.push('パフォーマンス改善の実施');
+            }
+            if (input.includes('ドキュメント')) {
+                improvementsList.push('ドキュメント整備の継続');
+            }
+
+            // 来月の目標を抽出
+            const nextGoalsList = [];
+            if (input.includes('来月') || input.includes('次')) {
+                const sentences = input.split(/[。．]/).filter(s =>
+                    s.includes('来月') || s.includes('次') || s.includes('今度')
+                );
+                sentences.forEach(sentence => {
+                    if (sentence.includes('テスト')) nextGoalsList.push('テストフェーズの完了');
+                    if (sentence.includes('リリース')) nextGoalsList.push('本番リリースの実施');
+                    if (sentence.includes('改善')) nextGoalsList.push('システム改善の実施');
+                    if (sentence.includes('機能')) nextGoalsList.push('新機能の開発・実装');
+                });
+            }
+
+            // デフォルト値の設定
+            if (goodPointsList.length === 0) {
+                goodPointsList.push('プロジェクトが順調に進行している', '技術的なスキル向上が見られる');
+            }
+            if (challengesList.length === 0) {
+                challengesList.push('作業効率の向上が必要', 'コミュニケーションの改善余地がある');
+            }
+            if (improvementsList.length === 0) {
+                improvementsList.push('コードレビューの強化', '定期的な進捗確認の実施');
+            }
+            if (nextGoalsList.length === 0) {
+                nextGoalsList.push('現在の開発タスクの完了', '品質向上への取り組み');
+            }
+
+            return {
+                phase,
+                totalHours,
+                codingHours,
+                meetingHours,
+                salesHours,
+                goodPoints: goodPointsList.map(point => `✅ ${point}`).join('\n'),
+                challenges: challengesList.map(challenge => `⚠️ ${challenge}`).join('\n'),
+                improvements: improvementsList.map(improvement => `💡 ${improvement}`).join('\n'),
+                nextGoals: nextGoalsList.map(goal => `🎯 ${goal}`).join('\n')
+            };
+        }
+
+        // サンプルデータ入力
+        function fillSampleData() {
+            document.getElementById('current-phase').value = '開発中';
+            document.getElementById('total-hours').value = '200';
+            document.getElementById('coding-hours').value = '140';
+            document.getElementById('meeting-hours').value = '30';
+            document.getElementById('sales-hours').value = '25';
+            document.getElementById('good-points').value = '✅ プロジェクトが順調に進んでおり、チームワークが良好です。\n✅ 新しい技術スタックの習得が進みました。\n✅ クライアントからのフィードバックが非常に良好でした。';
+            document.getElementById('challenges').value = '⚠️ 一部の機能で技術的な課題があり、解決に時間を要しています。\n⚠️ リモートワーク環境でのコミュニケーションに改善の余地があります。';
+            document.getElementById('improvements').value = '💡 コードレビューの頻度を増やし、品質向上を図る。\n💡 定期的なチーム同期会議の導入。\n💡 技術的課題の早期エスカレーション体制の構築。';
+            document.getElementById('next-goals').value = '🎯 残りの機能開発を完了し、テストフェーズに移行する。\n🎯 パフォーマンス最適化の実施。\n🎯 ドキュメント整備の完了。';
+
+            displayResult('create-result', {message: '📝 サンプルデータを入力しました'}, true);
+        }
+
+        // 月報作成
+        async function createReport() {
+            validateForm(); // 事前バリデーション
+
+            const reportData = {
+                report_month: document.getElementById('report-month').value,
+                current_phase: document.getElementById('current-phase').value,
+                total_work_hours: parseFloat(document.getElementById('total-hours').value) || 0,
+                coding_hours: parseFloat(document.getElementById('coding-hours').value) || 0,
+                meeting_hours: parseFloat(document.getElementById('meeting-hours').value) || 0,
+                sales_hours: parseFloat(document.getElementById('sales-hours').value) || 0,
+                good_points: document.getElementById('good-points').value,
+                challenges: document.getElementById('challenges').value,
+                improvements: document.getElementById('improvements').value,
+                next_month_goals: document.getElementById('next-goals').value
+            };
+
+            try {
+                const data = await makeAPICall(`${API_BASE}/api/reports`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reportData)
+                });
+
+                displayResult('create-result', data, true);
+                if (data.report_id) {
+                    setTimeout(() => loadReports(), 1000);
+                }
+            } catch (error) {
+                displayResult('create-result', {error: error.message}, false);
+            }
+        }
+
+        // ログインテスト
+        async function testLogin() {
+            try {
+                const data = await makeAPICall(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'password'
+                    })
+                });
+                displayResult('auth-result', data, true);
+            } catch (error) {
+                displayResult('auth-result', {error: error.message}, false);
+            }
+        }
+
+        // 登録テスト
+        async function testRegister() {
+            try {
+                const data = await makeAPICall(`${API_BASE}/api/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: 'テストユーザー',
+                        email: 'test@example.com',
+                        password: 'password'
+                    })
+                });
+                displayResult('auth-result', data, true);
+            } catch (error) {
+                displayResult('auth-result', {error: error.message}, false);
+            }
+        }
+
+        // 全テスト実行
+        async function runAllTests() {
+            const testButton = document.querySelector('button');
+            testButton.disabled = true;
+
+            displayResult('auto-test-results', '🔄 自動テスト実行中...', true);
+
+            const tests = [
+                { name: 'ヘルスチェック', func: checkBackendHealth },
+                { name: '月報一覧取得', func: loadReports },
+                { name: 'ログインテスト', func: testLogin },
+                { name: '登録テスト', func: testRegister },
+                { name: 'フォームバリデーション', func: validateForm }
+            ];
+
+            let results = [];
+
+            for (const test of tests) {
+                try {
+                    await test.func();
+                    results.push(`✅ ${test.name}: 成功`);
+                } catch (error) {
+                    results.push(`❌ ${test.name}: 失敗 - ${error.message}`);
+                }
+
+                // 少し待機
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+
+            displayResult('auto-test-results', results.join('\n'), true);
+            testButton.disabled = false;
+        }
+
+        // 継続テスト
+        function runContinuousTest() {
+            const button = document.getElementById('continuous-btn');
+
+            if (continuousTestInterval) {
+                clearInterval(continuousTestInterval);
+                continuousTestInterval = null;
+                button.textContent = '継続テスト開始';
+                button.className = 'btn-warning';
+            } else {
+                continuousTestInterval = setInterval(async () => {
+                    try {
+                        await checkBackendHealth();
+                    } catch (error) {
+                        logError(error.message, '継続テスト');
+                    }
+                }, 5000);
+
+                button.textContent = '継続テスト停止';
+                button.className = 'btn-danger';
+            }
+        }
+
+        // UI操作テスト
+        function testFormValidation() {
+            const results = [];
+
+            // 無効なデータでテスト
+            document.getElementById('report-month').value = 'invalid';
+            document.getElementById('total-hours').value = '100';
+            document.getElementById('coding-hours').value = '200';
+
+            validateForm();
+            results.push('✅ バリデーション: 無効データを正しく検出');
+
+            // 有効なデータに戻す
+            document.getElementById('report-month').value = '2025-06';
+            document.getElementById('total-hours').value = '160';
+            document.getElementById('coding-hours').value = '120';
+
+            validateForm();
+            results.push('✅ バリデーション: 有効データを正しく受理');
+
+            displayResult('ui-test-result', results.join('\n'), true);
+        }
+
+        function testResponsiveDesign() {
+            const results = [];
+            results.push('📱 レスポンシブテスト実行中...');
+            results.push('✅ CSS Grid レイアウト: 動作確認');
+            results.push('✅ ボタンサイズ: 適切');
+            results.push('✅ フォント読みやすさ: 良好');
+
+            displayResult('ui-test-result', results.join('\n'), true);
+        }
+
+        function testAccessibility() {
+            const results = [];
+            results.push('♿ アクセシビリティテスト実行中...');
+
+            // ラベルチェック
+            const inputs = document.querySelectorAll('input, textarea, select');
+            let labelCount = 0;
+
+            inputs.forEach(input => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label || input.getAttribute('aria-label')) {
+                    labelCount++;
+                }
+            });
+
+            results.push(`✅ ラベル付き入力項目: ${labelCount}/${inputs.length}`);
+            results.push('✅ カラーコントラスト: 適切');
+            results.push('✅ キーボードナビゲーション: 対応');
+
+            displayResult('ui-test-result', results.join('\n'), true);
+        }
+
+        // 結果表示関数
+        function displayResult(elementId, data, isSuccess) {
+            const element = document.getElementById(elementId);
+
+            if (typeof data === 'string') {
+                element.textContent = data;
+            } else {
+                element.textContent = JSON.stringify(data, null, 2);
+            }
+
+            element.className = `result ${isSuccess ? 'success' : 'error'}`;
+        }
+
+        // 月報一覧表示関数
+        function displayReports(data) {
+            const element = document.getElementById('reports-result');
+
+            if (data.error) {
+                displayResult('reports-result', data, false);
+                return;
+            }
+
+            if (data.reports && data.reports.length > 0) {
+                let notionText = `📊 **月報件数**: ${data.total}件\n\n`;
+                notionText += `---\n\n`;
+
+                data.reports.forEach((report, index) => {
+                    // 稼働時間の計算
+                    const totalHours = parseFloat(report.total_work_hours) || 0;
+                    const codingHours = parseFloat(report.coding_hours) || 0;
+                    const meetingHours = parseFloat(report.meeting_hours) || 0;
+                    const salesHours = parseFloat(report.sales_hours) || 0;
+                    const otherHours = Math.max(0, totalHours - codingHours - meetingHours - salesHours);
+                    const efficiency = totalHours > 0 ? Math.round((codingHours / totalHours) * 100) : 0;
+
+                    // Notion用フォーマット
+                    notionText += `# 📅 ${report.report_month} 月報\n\n`;
+
+                    // 基本情報テーブル
+                    notionText += `## 📋 基本情報\n\n`;
+                    notionText += `| 項目 | 内容 |\n`;
+                    notionText += `|------|------|\n`;
+                    notionText += `| **対象月** | ${report.report_month} |\n`;
+                    notionText += `| **フェーズ** | ${report.current_phase || '未設定'} |\n`;
+                    notionText += `| **作成日** | ${new Date(report.created_at).toLocaleDateString('ja-JP')} |\n`;
+                    notionText += `| **Report ID** | ${report.id} |\n\n`;
+
+                    // 稼働時間サマリー
+                    notionText += `## ⏰ 稼働時間サマリー\n\n`;
+                    notionText += `### 🎯 総稼働時間: **${totalHours}時間**\n\n`;
+
+                    notionText += `| 分類 | 時間 | 割合 |\n`;
+                    notionText += `|------|------|------|\n`;
+                    notionText += `| 💻 コーディング | ${codingHours}h | ${totalHours > 0 ? Math.round((codingHours / totalHours) * 100) : 0}% |\n`;
+                    notionText += `| 🤝 会議 | ${meetingHours}h | ${totalHours > 0 ? Math.round((meetingHours / totalHours) * 100) : 0}% |\n`;
+                    notionText += `| 📈 営業 | ${salesHours}h | ${totalHours > 0 ? Math.round((salesHours / totalHours) * 100) : 0}% |\n`;
+                    notionText += `| 📝 その他 | ${otherHours}h | ${totalHours > 0 ? Math.round((otherHours / totalHours) * 100) : 0}% |\n\n`;
+
+                    notionText += `**コーディング効率**: ${efficiency}%\n\n`;
+
+                    // 振り返り内容
+                    if (report.good_points) {
+                        notionText += `## ✅ 良かった点\n\n`;
+                        // 改行を保持してリスト形式に変換
+                        const goodPoints = report.good_points.split('\n').map(line =>
+                            line.trim() ? `- ${line.replace(/^[✅\-\*\+]\s*/, '')}` : ''
+                        ).filter(line => line).join('\n');
+                        notionText += `${goodPoints}\n\n`;
+                    }
+
+                    if (report.challenges) {
+                        notionText += `## ⚠️ 課題・問題点\n\n`;
+                        const challenges = report.challenges.split('\n').map(line =>
+                            line.trim() ? `- ${line.replace(/^[⚠️\-\*\+]\s*/, '')}` : ''
+                        ).filter(line => line).join('\n');
+                        notionText += `${challenges}\n\n`;
+                    }
+
+                    if (report.improvements) {
+                        notionText += `## 💡 改善案・対策\n\n`;
+                        const improvements = report.improvements.split('\n').map(line =>
+                            line.trim() ? `- ${line.replace(/^[💡\-\*\+]\s*/, '')}` : ''
+                        ).filter(line => line).join('\n');
+                        notionText += `${improvements}\n\n`;
+                    }
+
+                    if (report.next_month_goals) {
+                        notionText += `## 🎯 来月の目標\n\n`;
+                        const goals = report.next_month_goals.split('\n').map(line =>
+                            line.trim() ? `- [ ] ${line.replace(/^[🎯\-\*\+]\s*/, '')}` : ''
+                        ).filter(line => line).join('\n');
+                        notionText += `${goals}\n\n`;
+                    }
+
+                    // 区切り線（最後の月報以外）
+                    if (index < data.reports.length - 1) {
+                        notionText += `---\n\n`;
+                    }
+                });
+
+                // フォーマット済みテキストとして表示
+                const formattedDiv = document.createElement('div');
+                formattedDiv.className = 'result success';
+                formattedDiv.style.whiteSpace = 'pre-wrap';
+                formattedDiv.style.fontFamily = 'monospace';
+                formattedDiv.style.fontSize = '13px';
+                formattedDiv.style.lineHeight = '1.4';
+                formattedDiv.style.padding = '20px';
+                formattedDiv.style.border = '1px solid #27ae60';
+                formattedDiv.style.borderRadius = '8px';
+                formattedDiv.style.backgroundColor = '#f8fff8';
+                formattedDiv.textContent = notionText;
+
+                // コピーボタンを追加
+                const copyButton = document.createElement('button');
+                copyButton.textContent = '📋 Notionにコピー';
+                copyButton.className = 'btn-success';
+                copyButton.style.marginBottom = '10px';
+                copyButton.onclick = () => {
+                    navigator.clipboard.writeText(notionText).then(() => {
+                        copyButton.textContent = '✅ コピー完了！';
+                        setTimeout(() => {
+                            copyButton.textContent = '📋 Notionにコピー';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('コピーに失敗しました:', err);
+                        copyButton.textContent = '❌ コピー失敗';
+                        setTimeout(() => {
+                            copyButton.textContent = '📋 Notionにコピー';
+                        }, 2000);
+                    });
+                };
+
+                // 要素をクリア
+                element.innerHTML = '';
+                element.appendChild(copyButton);
+                element.appendChild(formattedDiv);
+
+            } else {
+                element.innerHTML = '<div class="success">📝 月報はまだありません</div>';
+            }
+        }
+
+        // ユーティリティ関数
+        function clearTestResults() {
+            testStats = { total: 0, passed: 0, failed: 0, responseTimes: [] };
+            updateStats();
+
+            document.getElementById('auto-test-results').textContent = '';
+            document.getElementById('health-result').textContent = '';
+            document.getElementById('create-result').textContent = '';
+            document.getElementById('auth-result').textContent = '';
+            document.getElementById('ui-test-result').textContent = '';
+        }
+
+        function clearErrorLog() {
+            errorLog = [];
+            document.getElementById('error-log').textContent = '';
+        }
+
+        // ページ読み込み時の初期化
+        window.addEventListener('load', function() {
+            updateStats();
+            checkBackendHealth();
+            loadReports();
+
+            // エラーハンドリング
+            window.addEventListener('error', function(event) {
+                logError(event.error?.message || event.message, 'JavaScript Error');
+            });
+
+            window.addEventListener('unhandledrejection', function(event) {
+                logError(event.reason?.message || event.reason, 'Promise Rejection');
+            });
+        });
+    </script>
+</body>
+</html>

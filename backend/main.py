@@ -1,0 +1,79 @@
+"""
+月報作成支援ツール - メインAPI
+"""
+
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer
+from contextlib import asynccontextmanager
+import os
+from dotenv import load_dotenv
+
+from database import create_tables
+from routers import auth, reports, users, ai_assistant, conversation
+
+# 環境変数を読み込み
+load_dotenv()
+
+# データベースの初期化
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # アプリケーション開始時
+    create_tables()
+    yield
+    # アプリケーション終了時（必要に応じてクリーンアップ処理）
+
+# FastAPIアプリケーションの作成
+app = FastAPI(
+    title="月報作成支援ツール API",
+    description="コミュニティメンバーの月報作成を効率化するAPIサービス",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# CORS設定
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3456").split(",")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allow_headers=["*"],
+)
+
+# セキュリティ
+security = HTTPBearer()
+
+# ルーターの登録
+app.include_router(auth.router, prefix="/api/auth", tags=["認証"])
+app.include_router(users.router, prefix="/api/users", tags=["ユーザー"])
+app.include_router(reports.router, prefix="/api/reports", tags=["月報"])
+app.include_router(ai_assistant.router, prefix="/api/ai", tags=["AI支援"])
+app.include_router(conversation.router, prefix="/api/conversation", tags=["対話型月報生成"])
+
+@app.get("/")
+async def root():
+    """
+    APIのルートエンドポイント
+    """
+    return {
+        "message": "月報作成支援ツール API",
+        "version": "1.0.0",
+        "status": "running"
+    }
+
+@app.get("/health")
+async def health_check():
+    """
+    ヘルスチェックエンドポイント
+    """
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8765,
+        reload=os.getenv("DEBUG", "false").lower() == "true"
+    )

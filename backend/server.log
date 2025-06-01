@@ -1,0 +1,450 @@
+INFO:     Will watch for changes in these directories: ['/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8765 (Press CTRL+C to quit)
+INFO:     Started reloader process [32626] using StatReload
+INFO:     Started server process [32634]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:58596 - "GET /api/ HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58671 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58731 - "POST /api/auth/register HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:58796 - "POST /api/auth/register HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:59090 - "POST /api/auth/register HTTP/1.1" 422 Unprocessable Content
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     127.0.0.1:59403 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:60070 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60201 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65216 - "GET / HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [32634]
+INFO:     Started server process [35709]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/ai_assistant.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35709]
+INFO:     Started server process [35753]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/ai_assistant.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35753]
+INFO:     Started server process [35780]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35780]
+INFO:     Started server process [35823]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35823]
+INFO:     Started server process [35854]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:52719 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52721 - "POST /api/auth/register HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:52723 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:52725 - "GET /api/auth/me HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:52727 - "GET /api/reports/dashboard HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:52729 - "POST /api/reports/ HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:52731 - "POST /api/ai/generate-suggestions HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:53709 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53711 - "POST /api/auth/register HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:53713 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:53715 - "GET /api/auth/me HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:53717 - "GET /api/reports/dashboard HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:53719 - "POST /api/reports/ HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:53721 - "POST /api/ai/generate-suggestions HTTP/1.1" 403 Forbidden
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     127.0.0.1:55310 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:57069 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:57524 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58750 - "POST /api/ai/generate-suggestions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:0 - "GET /manifest.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /manifest.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59303 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59303 - "GET /api/reports HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59303 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59305 - "GET /api/reports HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:59692 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59694 - "GET /api/reports HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:0 - "GET /manifest.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /manifest.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /manifest.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /manifest.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /logo192.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /logo192.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58138 - "POST /api/auth/register HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:58389 - "POST /api/auth/register HTTP/1.1" 201 Created
+INFO:     127.0.0.1:59563 - "OPTIONS /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59563 - "POST /auth/login HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59698 - "POST /auth/login HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /logo192.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /logo192.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60307 - "OPTIONS /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "OPTIONS /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "GET /api/users/stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60309 - "OPTIONS /api/reports?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "GET /api/reports?page=1&size=5 HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60307 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "GET /api/users/stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /logo192.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:0 - "GET /logo192.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60501 - "OPTIONS /api/ai/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60501 - "POST /api/ai/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60546 - "GET /api/users/stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60548 - "GET /api/reports?page=1&size=5 HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60548 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60548 - "GET /api/users/stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60600 - "OPTIONS /api/reports?page=1&size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60600 - "GET /api/reports?page=1&size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:60600 - "OPTIONS /api/reports/?page=1&size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60600 - "GET /api/reports/?page=1&size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60686 - "POST /api/auth/login HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'routers/users.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35854]
+INFO:     Started server process [46014]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/users.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46014]
+INFO:     Started server process [46053]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'create_sample_data.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [46053]
+INFO:     Started server process [48684]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/users.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [48684]
+INFO:     Started server process [48742]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     127.0.0.1:65049 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65052 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49374 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49381 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51166 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51167 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51167 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51166 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51166 - "GET /api/reports?page=1&size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51166 - "GET /api/reports/?page=1&size=10 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51166 - "GET /api/reports?page=1&size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51166 - "GET /api/reports/?page=1&size=10 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51166 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51215 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51215 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51215 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51855 - "OPTIONS /api/ai/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51855 - "POST /api/ai/analyze HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51855 - "POST /api/ai/analyze HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51855 - "POST /api/ai/analyze HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51855 - "POST /api/ai/analyze HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51855 - "OPTIONS /api/reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51855 - "POST /api/reports HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51855 - "OPTIONS /api/reports/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51855 - "POST /api/reports/ HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51952 - "POST /api/reports HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51952 - "POST /api/reports/ HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:52013 - "POST /api/reports HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52013 - "POST /api/reports/ HTTP/1.1" 403 Forbidden
+WARNING:  StatReload detected changes in 'schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [48742]
+INFO:     Started server process [50407]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50407]
+INFO:     Started server process [50420]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50420]
+INFO:     Started server process [50425]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     127.0.0.1:55695 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55698 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58225 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58227 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58227 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58227 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58260 - "POST /api/conversation/start HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58260 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58282 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58282 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58282 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58282 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58260 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58260 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58260 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58493 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58495 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58495 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58495 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58495 - "POST /api/conversation/start HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58956 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:58957 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59020 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59021 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59079 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59080 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59130 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59131 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59194 - "GET /api/users/stats HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:59195 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:60678 - "OPTIONS /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60678 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60678 - "OPTIONS /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60678 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60678 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60680 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60680 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60678 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60737 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60737 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65240 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65241 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65241 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65240 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65299 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65299 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50415 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50417 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51448 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51449 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51449 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51448 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52700 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53601 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53602 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53602 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53602 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56085 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58041 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58042 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58041 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58042 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58042 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58042 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58263 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58265 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:0 - "GET /reports/conversation HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61362 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61363 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:0 - "GET /login HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:65455 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65455 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65455 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65457 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65473 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65477 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49433 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49433 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49433 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49439 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49439 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49433 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51130 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51132 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51132 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51130 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51186 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51186 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53551 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54315 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54316 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54316 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54579 - "OPTIONS /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54579 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54613 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54648 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54674 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54708 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54742 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54780 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54894 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54930 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54976 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55041 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55041 - "OPTIONS /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55041 - "POST /api/conversation/generate-report HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/uvicorn/protocols/http/h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 187, in __call__
+    raise exc
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/venv/lib/python3.13/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/harry/Dropbox/Tool_Development/Auto_Creation_Report/backend/routers/conversation.py", line 233, in generate_report_from_conversation
+    "total_work_hours": float(answers.get("total_work_hours", {}).get("answer", 0)),
+                        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '160時間ぐらいすね'
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50425]
+INFO:     Started server process [69451]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [69451]
+INFO:     Started server process [69491]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [69491]
+INFO:     Started server process [70118]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:61141 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61142 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61142 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61141 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61175 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61176 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61176 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61175 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61175 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61175 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61520 - "OPTIONS /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61520 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61550 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61647 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61681 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61735 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61769 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61829 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61864 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61955 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62005 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62056 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62056 - "OPTIONS /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62056 - "POST /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62056 - "OPTIONS /api/reports/6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62056 - "GET /api/reports/6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62151 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62153 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62153 - "OPTIONS /api/reports/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62153 - "GET /api/reports/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62153 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62190 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
