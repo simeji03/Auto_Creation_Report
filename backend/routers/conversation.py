@@ -519,14 +519,14 @@ async def generate_report_from_conversation(
             sales_nums = re.findall(r'\d+', sales_text)
             sales_emails = int(sales_nums[0]) if len(sales_nums) > 0 else 40
             
-            # 稼働時間の内訳を推定（簡易的な配分）
-            coding_hours = total_hours * 0.6  # 60%をコーディング
-            meeting_hours = total_hours * 0.2  # 20%を会議
-            sales_hours = total_hours * 0.2   # 20%を営業
+            # 稼働時間の内訳（個別に指定されていない場合は0）
+            coding_hours = 0.0
+            meeting_hours = 0.0
+            sales_hours = 0.0
             
-            # 営業活動の詳細を抽出
-            sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else int(sales_emails * 0.1)  # 返信率10%と仮定
-            sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else int(sales_replies * 0.3)  # 返信の30%が面談と仮定
+            # 営業活動の詳細を抽出（実際の数値のみ使用）
+            sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else 0
+            sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else 0
             
             report_data = {
                 "user_id": current_user.id,
@@ -668,14 +668,14 @@ async def generate_traditional_report(session_data: ConversationSession, current
 以上、{year_month}の活動報告でした。来月もよろしくお願いいたします！
 """
     
-    # 稼働時間の内訳を推定（簡易的な配分）
-    coding_hours = total_hours * 0.6  # 60%をコーディング
-    meeting_hours = total_hours * 0.2  # 20%を会議
-    sales_hours = total_hours * 0.2   # 20%を営業
+    # 稼働時間の内訳（個別に指定されていない場合は0）
+    coding_hours = 0.0
+    meeting_hours = 0.0
+    sales_hours = 0.0
     
-    # 営業活動の詳細を抽出
-    sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else int(sales_emails * 0.1)  # 返信率10%と仮定
-    sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else int(sales_replies * 0.3)  # 返信の30%が面談と仮定
+    # 営業活動の詳細を抽出（実際の数値のみ使用）
+    sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else 0
+    sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else 0
     
     # 基本的なレポートデータ
     report_data = {
