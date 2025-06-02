@@ -2,6 +2,24 @@
 
 コミュニティメンバーの月報作成時間を大幅に短縮し、より見やすく伝わりやすい月報を簡単に作成できるWebアプリケーションです。
 
+## 🚀 クイックスタート（3分で起動）
+
+### Cursorユーザー向け（推奨）
+1. **Docker Desktop**をインストール（[Mac](https://www.docker.com/products/docker-desktop/) / [Windows](https://www.docker.com/products/docker-desktop/)）
+2. このリポジトリをダウンロード
+3. **ダブルクリックで起動**：
+   - Mac: `cursor-setup.command`
+   - Windows: `cursor-setup.bat`
+
+詳細は[CURSOR_USER_GUIDE.md](CURSOR_USER_GUIDE.md)を参照
+
+### 開発者向け
+```bash
+git clone https://github.com/simeji03/Auto_Creation_Report.git
+cd Auto_Creation_Report
+./quick-start.sh
+```
+
 ## 🎯 主な機能
 
 ### ✨ ユーザー体験の向上
@@ -34,7 +52,7 @@
 - **AI機能**: OpenAI API (GPT-4)
 - **認証**: JWT + セキュアセッション管理
 
-## 🚀 クイックスタート
+## 🚀 セットアップ方法
 
 ### 必要環境
 - Node.js 18+
