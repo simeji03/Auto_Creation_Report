@@ -12,7 +12,7 @@
 3. ブラウザで http://localhost:3456 が開きます
 
 【詳細な使い方】
-CURSOR_USER_GUIDE.md を参照してください。
+BEGINNER_GUIDE.md を参照してください。
 
 【トラブル時】
 1. Docker Desktopが起動しているか確認
@@ -24,3 +24,5 @@ CURSOR_USER_GUIDE.md を参照してください。
 - AI自動文章生成（OpenAI GPT-4）
 - PDF出力
 - 月報管理
+
+⚠️ 個人データ・APIキーは含まれていません（各自で設定）
