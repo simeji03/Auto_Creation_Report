@@ -54,23 +54,13 @@ const ReportDetail: React.FC = () => {
     },
     {
       onSuccess: async () => {
-        console.group('🗑️ 削除処理開始');
-        console.log('1. 削除API成功');
-        
-        // キャッシュを完全にクリアしてから遷移
-        console.log('2. キャッシュリセット開始');
-        await queryClient.resetQueries(['reports']);
-        console.log('3. キャッシュ無効化開始');
+        // キャッシュをクリアしてから遷移
         await queryClient.invalidateQueries(['reports']);
-        console.log('4. キャッシュ処理完了');
         
-        // 遷移前に少し待機してキャッシュ更新を確実にする
-        console.log('5. 遷移待機中...');
+        // 遷移前に少し待機
         setTimeout(() => {
-          console.log('6. /reports に遷移実行');
           navigate('/reports', { replace: true });
           toast.success('月報を削除しました');
-          console.groupEnd();
         }, 100);
       },
       onError: () => {
