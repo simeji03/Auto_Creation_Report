@@ -35,16 +35,7 @@ const ReportList: React.FC = () => {
 
   // ページに到達した時（削除後の遷移等）にキャッシュを強制更新
   useEffect(() => {
-    console.group('📍 ReportList Mount/Route Change');
-    console.log('Current pathname:', location.pathname);
-    console.log('Current search:', location.search);
-    console.log('Current state:', location.state);
-    console.log('Executing cache invalidation...');
-    
-    queryClient.invalidateQueries(['reports']).then(() => {
-      console.log('✅ Cache invalidation completed');
-      console.groupEnd();
-    });
+    queryClient.invalidateQueries(['reports']);
   }, [location.pathname, queryClient]);
 
   const { data, isLoading, refetch, error } = useQuery<PaginatedResponse>(
@@ -58,12 +49,6 @@ const ReportList: React.FC = () => {
             search: searchTerm || undefined,
           },
         });
-        console.group('📡 API Response Analysis');
-        console.log('Raw Response:', response);
-        console.log('Response Data:', response.data);
-        console.log('Response Status:', response.status);
-        console.log('Response Headers:', response.headers);
-        console.groupEnd();
         
         // レスポンスデータの構造を検証
         if (!response.data) {
@@ -72,7 +57,6 @@ const ReportList: React.FC = () => {
         
         // APIが直接配列を返す場合（実際の仕様）をページネーション構造に変換
         if (Array.isArray(response.data)) {
-          console.log('✅ Converting array response to pagination structure');
           const items = response.data;
           return {
             items: items,
@@ -85,11 +69,10 @@ const ReportList: React.FC = () => {
         
         // 既にページネーション構造の場合（将来的な拡張用）
         if (typeof response.data === 'object' && 'items' in response.data) {
-          console.log('✅ Response already in pagination structure');
           return response.data;
         }
         
-        console.warn('⚠️ Unknown response structure, providing default');
+        // デフォルト値を返す
         return {
           items: [],
           total: 0,
@@ -98,7 +81,6 @@ const ReportList: React.FC = () => {
           pages: 0
         };
       } catch (error) {
-        console.error('🚨 API Error:', error);
         // エラー時のデフォルト値
         return {
           items: [],
@@ -118,40 +100,6 @@ const ReportList: React.FC = () => {
     }
   );
 
-  // 型ガード関数
-  const isValidPaginatedResponse = (data: any): data is PaginatedResponse => {
-    return data && 
-           typeof data === 'object' && 
-           'items' in data && 
-           Array.isArray(data.items) &&
-           'total' in data &&
-           'page' in data &&
-           'size' in data &&
-           'pages' in data;
-  };
-
-  // 詳細デバッグ用ログ
-  console.group('🔍 ReportList Debug Info');
-  console.log('📊 Query State:', {
-    isLoading,
-    error: error ? String(error) : 'No error',
-    dataExists: !!data,
-    dataType: typeof data,
-  });
-  console.log('📦 Data Structure:', data);
-  console.log('✅ Validation Results:', {
-    isValidData: isValidPaginatedResponse(data),
-    hasItems: data && 'items' in data,
-    itemsIsArray: data && Array.isArray(data.items),
-    itemsLength: data && data.items ? data.items.length : 'N/A',
-    itemsContent: data && data.items ? data.items.slice(0, 2) : 'N/A' // 最初の2件だけ表示
-  });
-  console.log('🎯 Render Conditions:', {
-    showLoading: isLoading,
-    showTable: isValidPaginatedResponse(data) && data.items.length > 0,
-    showEmpty: !isLoading && (!isValidPaginatedResponse(data) || data.items.length === 0)
-  });
-  console.groupEnd();
 
   const handleDelete = async (id: number, month: string) => {
     if (!window.confirm(`${formatMonth(month)}の月報を削除してもよろしいですか？`)) {
@@ -161,18 +109,12 @@ const ReportList: React.FC = () => {
     try {
       await api.delete(`/reports/${id}`);
       
-      // 複数の方法でキャッシュを確実に更新
-      await queryClient.resetQueries(['reports']); // 全てリセット
-      await queryClient.invalidateQueries(['reports']); // 無効化
-      await queryClient.refetchQueries(['reports'], { active: true }); // 再取得
-      
-      // 強制的にコンポーネント再レンダリング
-      setPage(prev => prev);
+      // キャッシュを更新
+      await queryClient.invalidateQueries(['reports']);
+      await queryClient.refetchQueries(['reports'], { active: true });
       
       toast.success('月報を削除しました');
-      console.log('🗑️ 削除完了後のキャッシュ完全更新実行');
     } catch (error) {
-      console.error('🚨 削除エラー:', error);
       toast.error('削除に失敗しました');
     }
   };
@@ -244,27 +186,6 @@ const ReportList: React.FC = () => {
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              {(() => {
-                const renderState = {
-                  isLoading,
-                  dataExists: !!data,
-                  dataStructure: data ? Object.keys(data) : [],
-                  hasItems: data && 'items' in data,
-                  itemsLength: data?.items?.length,
-                  isValidStructure: isValidPaginatedResponse(data),
-                  willShowTable: isValidPaginatedResponse(data) && data.items && data.items.length > 0,
-                  willShowEmpty: !isLoading && (!isValidPaginatedResponse(data) || !data?.items || data.items.length === 0)
-                };
-                
-                console.log('🎨 Render Decision Point:', renderState);
-                
-                // DOMに情報を埋め込んでブラウザで確認できるように
-                if (typeof window !== 'undefined') {
-                  (window as any).reportListDebug = renderState;
-                }
-                
-                return null;
-              })()}
               {isLoading ? (
                 <div className="text-center py-8">
                   <div className="inline-flex items-center">
