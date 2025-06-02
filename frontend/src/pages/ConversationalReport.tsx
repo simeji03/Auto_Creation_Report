@@ -481,6 +481,13 @@ const ConversationalReport: React.FC = () => {
   // 月報の生成
   const generateReport = async (sessionData: any) => {
     try {
+      // API使用状況の表示
+      if (hasApiKey) {
+        toast.info('🤖 OpenAI APIで高品質な月報を生成中...');
+      } else {
+        toast.info('📝 標準形式で月報を生成中...');
+      }
+      
       const response = await api.post('/conversation/generate-report', sessionData);
       if (response.data.ai_generated_content) {
         // AI生成コンテンツがある場合は、AI月報表示画面に遷移
@@ -490,11 +497,12 @@ const ConversationalReport: React.FC = () => {
             reportId: response.data.report_id 
           } 
         });
+        toast.success('🎉 AI月報が正常に生成されました！');
       } else {
         // 従来の月報詳細画面に遷移
         navigate(`/reports/${response.data.report_id}`);
+        toast.success('📄 標準月報が正常に生成されました！');
       }
-      toast.success('月報が正常に生成されました！');
     } catch (error) {
       console.error('月報生成エラー:', error);
       toast.error('月報の生成に失敗しました');
@@ -598,10 +606,33 @@ const ConversationalReport: React.FC = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">対話完了！</h2>
-          <p className="text-gray-600 mb-6">
-            すべての質問にお答えいただき、ありがとうございました。<br />
-            月報を生成しています...
+          <p className="text-gray-600 mb-4">
+            すべての質問にお答えいただき、ありがとうございました。
           </p>
+          
+          {/* API使用状況の表示 */}
+          <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium mb-4 ${
+            hasApiKey 
+              ? 'bg-blue-100 text-blue-800' 
+              : 'bg-gray-100 text-gray-800'
+          }`}>
+            {hasApiKey ? (
+              <>
+                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                </svg>
+                🤖 AI高品質月報を生成中...
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4z" clipRule="evenodd" />
+                </svg>
+                📝 標準月報を生成中...
+              </>
+            )}
+          </div>
+          
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
         </div>
       </div>

@@ -42,8 +42,16 @@ const AIGeneratedReport: React.FC = () => {
         <div className="bg-white rounded-lg shadow-sm mb-6 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">🤖 AI生成月報</h1>
-              <p className="text-gray-600 mt-1">音声入力から自動生成された月報です</p>
+              <div className="flex items-center space-x-3 mb-2">
+                <h1 className="text-2xl font-bold text-gray-900">🤖 AI生成月報</h1>
+                <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  OpenAI API使用
+                </div>
+              </div>
+              <p className="text-gray-600">音声入力を基にGPT-4で自動生成された高品質な月報です</p>
             </div>
             <div className="flex space-x-3">
               {/* 表示モード切替 */}
@@ -194,7 +202,24 @@ const AIGeneratedReport: React.FC = () => {
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            この月報は音声入力を元にAIが自動生成しました
+            この月報は音声入力を元にOpenAI GPT-4が自動生成しました
+          </div>
+          
+          {/* API使用詳細 */}
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+            <div className="flex items-center justify-center mb-2">
+              <svg className="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-medium text-green-800">
+                ✨ AI生成機能が使用されました
+              </span>
+            </div>
+            <ul className="text-xs text-green-700 space-y-1 text-left max-w-md mx-auto">
+              <li>• あなたのAPIキーでOpenAI GPT-4を使用</li>
+              <li>• 推定コスト: ¥10-30程度</li>
+              <li>• 2000-3000文字の高品質な月報を自動生成</li>
+            </ul>
           </div>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
             <p className="text-sm text-blue-800 mb-2">

@@ -6,20 +6,33 @@ const Settings: React.FC = () => {
   const [apiKey, setApiKey] = useState('');
   const [showKey, setShowKey] = useState(false);
   const [isTestingKey, setIsTestingKey] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [testResult, setTestResult] = useState<{success: boolean, details?: string} | null>(null);
 
   useEffect(() => {
     // ローカルストレージからAPIキーを読み込み
     const savedKey = localStorage.getItem('openai_api_key') || '';
     setApiKey(savedKey);
+    setIsSaved(!!savedKey);
   }, []);
+
+  // APIキーが変更されたときの処理
+  useEffect(() => {
+    const savedKey = localStorage.getItem('openai_api_key') || '';
+    setIsSaved(apiKey.trim() === savedKey && apiKey.trim() !== '');
+    setTestResult(null); // APIキーが変更されたらテスト結果をクリア
+  }, [apiKey]);
 
   const saveApiKey = () => {
     if (apiKey.trim()) {
       localStorage.setItem('openai_api_key', apiKey.trim());
-      toast.success('APIキーを保存しました');
+      setIsSaved(true);
+      toast.success('✅ APIキーを保存しました');
     } else {
       localStorage.removeItem('openai_api_key');
-      toast.info('APIキーを削除しました');
+      setIsSaved(false);
+      setTestResult(null);
+      toast.info('🗑️ APIキーを削除しました');
     }
   };
 
@@ -30,6 +43,8 @@ const Settings: React.FC = () => {
     }
 
     setIsTestingKey(true);
+    setTestResult(null);
+    
     try {
       // OpenAI APIのテスト（モデル一覧を取得）
       const response = await fetch('https://api.openai.com/v1/models', {
@@ -39,12 +54,27 @@ const Settings: React.FC = () => {
       });
 
       if (response.ok) {
-        toast.success('APIキーが有効です！');
+        const data = await response.json();
+        const gpt4Models = data.data.filter((model: any) => model.id.includes('gpt-4')).length;
+        setTestResult({
+          success: true,
+          details: `✅ APIキー有効 - GPT-4モデル${gpt4Models}個利用可能`
+        });
+        toast.success('🎉 APIキーが有効です！AI月報生成が利用できます');
       } else {
-        toast.error('APIキーが無効です');
+        const errorData = await response.json().catch(() => ({}));
+        setTestResult({
+          success: false,
+          details: `❌ APIキー無効 - ${errorData.error?.message || response.statusText}`
+        });
+        toast.error('❌ APIキーが無効です');
       }
     } catch (error) {
-      toast.error('APIキーの検証中にエラーが発生しました');
+      setTestResult({
+        success: false,
+        details: `❌ 接続エラー - ${error instanceof Error ? error.message : '不明なエラー'}`
+      });
+      toast.error('🌐 APIキーの検証中にエラーが発生しました');
     } finally {
       setIsTestingKey(false);
     }
@@ -80,6 +110,41 @@ const Settings: React.FC = () => {
             </div>
 
             <div className="space-y-4">
+              {/* API状態表示 */}
+              <div className="flex items-center space-x-2 mb-4">
+                <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  isSaved && apiKey.trim() 
+                    ? 'bg-green-100 text-green-800' 
+                    : 'bg-gray-100 text-gray-800'
+                }`}>
+                  {isSaved && apiKey.trim() ? (
+                    <>
+                      <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      APIキー設定済み
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      APIキー未設定
+                    </>
+                  )}
+                </div>
+                
+                {testResult && (
+                  <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    testResult.success 
+                      ? 'bg-blue-100 text-blue-800' 
+                      : 'bg-red-100 text-red-800'
+                  }`}>
+                    {testResult.success ? '✅ テスト成功' : '❌ テスト失敗'}
+                  </div>
+                )}
+              </div>
+              
               <div>
                 <label htmlFor="api-key" className="block text-sm font-medium text-gray-700">
                   APIキー
@@ -118,13 +183,26 @@ const Settings: React.FC = () => {
               <div className="flex space-x-3">
                 <button
                   onClick={saveApiKey}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                    isSaved && apiKey.trim() === localStorage.getItem('openai_api_key')
+                      ? 'text-green-700 bg-green-100 hover:bg-green-200'
+                      : 'text-white bg-indigo-600 hover:bg-indigo-700'
+                  }`}
                 >
-                  保存
+                  {isSaved && apiKey.trim() === localStorage.getItem('openai_api_key') ? (
+                    <>
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      保存済み
+                    </>
+                  ) : (
+                    '保存'
+                  )}
                 </button>
                 <button
                   onClick={testApiKey}
-                  disabled={isTestingKey}
+                  disabled={isTestingKey || !apiKey.trim()}
                   className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isTestingKey ? (
@@ -140,6 +218,26 @@ const Settings: React.FC = () => {
                   )}
                 </button>
               </div>
+              
+              {/* テスト結果の詳細表示 */}
+              {testResult && (
+                <div className={`mt-4 p-3 rounded-md border ${
+                  testResult.success 
+                    ? 'bg-green-50 border-green-200' 
+                    : 'bg-red-50 border-red-200'
+                }`}>
+                  <p className={`text-sm font-medium ${
+                    testResult.success ? 'text-green-800' : 'text-red-800'
+                  }`}>
+                    {testResult.details}
+                  </p>
+                  {testResult.success && (
+                    <p className="text-xs text-green-600 mt-1">
+                      🎉 AI月報生成機能が利用可能です！
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
