@@ -206,9 +206,9 @@ const ReportList: React.FC = () => {
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         フェーズ
                       </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {/* <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         総稼働時間
-                      </th>
+                      </th> */}
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         受領金額
                       </th>
@@ -233,16 +233,11 @@ const ReportList: React.FC = () => {
                             {report.current_phase || '-'}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        {/* <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
                             {report.total_work_hours.toFixed(1)}h
                           </div>
-                          <div className="text-xs text-gray-500">
-                            コーディング: {report.coding_hours.toFixed(1)}h / 
-                            会議: {report.meeting_hours.toFixed(1)}h / 
-                            営業: {report.sales_hours.toFixed(1)}h
-                          </div>
-                        </td>
+                        </td> */}
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {formatCurrency(report.received_amount)}
                         </td>

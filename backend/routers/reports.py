@@ -83,7 +83,7 @@ async def get_user_reports(
     """
     reports = db.query(MonthlyReport).filter(
         MonthlyReport.user_id == current_user.id
-    ).order_by(MonthlyReport.report_month.desc()).offset(skip).limit(limit).all()
+    ).order_by(MonthlyReport.created_at.desc()).offset(skip).limit(limit).all()
 
     return reports
 

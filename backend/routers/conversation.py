@@ -519,19 +519,32 @@ async def generate_report_from_conversation(
             sales_nums = re.findall(r'\d+', sales_text)
             sales_emails = int(sales_nums[0]) if len(sales_nums) > 0 else 40
             
+            # 稼働時間の内訳（個別に指定されていない場合は0）
+            coding_hours = 0.0
+            meeting_hours = 0.0
+            sales_hours = 0.0
+            
+            # 営業活動の詳細を抽出（実際の数値のみ使用）
+            sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else 0
+            sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else 0
+            
             report_data = {
                 "user_id": current_user.id,
                 "report_month": datetime.now().strftime("%Y-%m"),
                 "current_phase": answers.get("ideal_lifestyle", {}).get("answer", ""),
                 "total_work_hours": total_hours,
-                "coding_hours": 0.0,  # AI生成版では詳細分類は簡略化
-                "meeting_hours": 0.0,
+                "coding_hours": coding_hours,
+                "meeting_hours": meeting_hours,
+                "sales_hours": sales_hours,
                 "sales_emails_sent": sales_emails,
-                "sales_replies": 0,
-                "sales_meetings": 0,
+                "sales_replies": sales_replies,
+                "sales_meetings": sales_meetings,
+                "contracts_signed": 0,  # 契約数は回答から抽出が難しいため0
                 "received_amount": received_amount,
+                "delivered_amount": received_amount,  # 納品金額を受領金額と同じに設定
                 "good_points": ai_generated_report,  # AI生成された全文をここに保存
                 "challenges": answers.get("challenges", {}).get("answer", ""),
+                "improvements": "",  # AI生成版では簡略化
                 "next_month_goals": answers.get("next_month_goals", {}).get("answer", "")
             }
             
@@ -655,20 +668,34 @@ async def generate_traditional_report(session_data: ConversationSession, current
 以上、{year_month}の活動報告でした。来月もよろしくお願いいたします！
 """
     
+    # 稼働時間の内訳（個別に指定されていない場合は0）
+    coding_hours = 0.0
+    meeting_hours = 0.0
+    sales_hours = 0.0
+    
+    # 営業活動の詳細を抽出（実際の数値のみ使用）
+    sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else 0
+    sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else 0
+    
     # 基本的なレポートデータ
     report_data = {
         "user_id": current_user.id,
         "report_month": datetime.now().strftime("%Y-%m"),
         "current_phase": answers.get("ideal_lifestyle", {}).get("answer", ""),
+        "family_status": answers.get("life_changes", {}).get("answer", ""),  # 家族の状況を追加
         "total_work_hours": total_hours,
-        "coding_hours": 0.0,
-        "meeting_hours": 0.0,
+        "coding_hours": coding_hours,
+        "meeting_hours": meeting_hours,
+        "sales_hours": sales_hours,
         "sales_emails_sent": sales_emails,
-        "sales_replies": 0,
-        "sales_meetings": 0,
+        "sales_replies": sales_replies,
+        "sales_meetings": sales_meetings,
+        "contracts_signed": 0,  # 契約数は回答から抽出が難しいため0
         "received_amount": received_amount,
+        "delivered_amount": received_amount,  # 納品金額を受領金額と同じに設定
         "good_points": ai_generated_report,  # AI生成コンテンツをここに保存
         "challenges": answers.get("challenges", {}).get("answer", ""),
+        "improvements": "",  # フォールバック版では簡略化
         "next_month_goals": answers.get("next_month_goals", {}).get("answer", "")
     }
     

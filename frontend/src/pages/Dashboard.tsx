@@ -50,7 +50,11 @@ const Dashboard: React.FC = () => {
       const response = await api.get('/reports/', {
         params: { page: 1, size: 5 },
       });
-      return response.data.items || response.data;
+      // APIが直接配列を返す場合と、itemsプロパティを持つ場合の両方に対応
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+      return response.data.items || [];
     },
     {
       refetchOnWindowFocus: false,
@@ -81,7 +85,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* 統計カード */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-8">
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <dt className="text-sm font-medium text-gray-500 truncate">
@@ -93,7 +97,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        {/* <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <dt className="text-sm font-medium text-gray-500 truncate">
               総稼働時間
@@ -102,7 +106,7 @@ const Dashboard: React.FC = () => {
               {statsLoading ? '...' : `${stats?.total_hours.toFixed(1) || 0}h`}
             </dd>
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
@@ -115,7 +119,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        {/* <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <dt className="text-sm font-medium text-gray-500 truncate">
               月平均稼働時間
@@ -124,7 +128,7 @@ const Dashboard: React.FC = () => {
               {statsLoading ? '...' : `${stats?.average_monthly_hours.toFixed(1) || 0}h`}
             </dd>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* クイックアクション */}
@@ -180,9 +184,9 @@ const Dashboard: React.FC = () => {
                     <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       月
                     </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {/* <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       稼働時間
-                    </th>
+                    </th> */}
                     <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       受領金額
                     </th>
@@ -198,9 +202,9 @@ const Dashboard: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {formatMonth(report.report_month)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {report.total_work_hours.toFixed(1)}h
-                      </td>
+                      </td> */}
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatCurrency(report.received_amount)}
                       </td>
