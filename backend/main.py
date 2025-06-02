@@ -10,7 +10,8 @@ import os
 from dotenv import load_dotenv
 
 from database import create_tables
-from routers import auth, reports, users, ai_assistant, conversation
+from routers import auth, reports, users, ai_assistant, conversation, reports_no_auth, conversation_no_auth, test_data_no_auth
+import routers.conversation_no_auth_detailed as conversation_no_auth_detailed
 
 # 環境変数を読み込み
 load_dotenv()
@@ -47,9 +48,10 @@ security = HTTPBearer()
 # ルーターの登録
 app.include_router(auth.router, prefix="/api/auth", tags=["認証"])
 app.include_router(users.router, prefix="/api/users", tags=["ユーザー"])
-app.include_router(reports.router, prefix="/api/reports", tags=["月報"])
+app.include_router(reports_no_auth.router, prefix="/api/reports", tags=["月報（認証無効版）"])
 app.include_router(ai_assistant.router, prefix="/api/ai", tags=["AI支援"])
-app.include_router(conversation.router, prefix="/api/conversation", tags=["対話型月報生成"])
+app.include_router(conversation_no_auth_detailed.router, prefix="/api/conversation", tags=["対話型月報生成（認証無効版）"])
+app.include_router(test_data_no_auth.router, prefix="/api/test", tags=["テストデータ（認証無効版）"])
 
 @app.get("/")
 async def root():

@@ -1,20 +1,7 @@
 import React from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { Outlet, Link } from 'react-router-dom';
 
 const Layout: React.FC = () => {
-  const { user, logout, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, navigate]);
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -53,11 +40,11 @@ const Layout: React.FC = () => {
               </div>
             </div>
 
-            {/* ユーザーメニュー */}
+            {/* 設定メニュー */}
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <span className="text-sm text-gray-700 mr-4">
-                  {user?.name} さん
+                  月報作成ツール
                 </span>
                 <Link
                   to="/settings"
@@ -69,12 +56,6 @@ const Layout: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </Link>
-                <button
-                  onClick={logout}
-                  className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  ログアウト
-                </button>
               </div>
             </div>
           </div>

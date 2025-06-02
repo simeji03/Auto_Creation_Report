@@ -4,8 +4,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 // ページコンポーネント
 import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import ReportList from './pages/ReportList';
 import ReportDetail from './pages/ReportDetail';
 import ConversationalReport from './pages/ConversationalReport';
@@ -14,7 +12,6 @@ import Settings from './pages/Settings';
 
 // レイアウトコンポーネント
 import Layout from './components/Layout';
-import AuthProvider from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // React Query クライアント
@@ -32,25 +29,19 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <AuthProvider>
-            <div className="App min-h-screen bg-gray-50">
-              <Routes>
-                {/* 認証不要のルート */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-
-                {/* 認証必要のルート */}
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="reports" element={<ReportList />} />
-                  <Route path="reports/conversation" element={<ConversationalReport />} />
-                  <Route path="reports/ai-generated" element={<AIGeneratedReport />} />
-                  <Route path="reports/:id" element={<ReportDetail />} />
-                  <Route path="settings" element={<Settings />} />
-                </Route>
-              </Routes>
-            </div>
-          </AuthProvider>
+          <div className="App min-h-screen bg-gray-50">
+            <Routes>
+              {/* すべてのルート - 認証無効化 */}
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="reports" element={<ReportList />} />
+                <Route path="reports/conversation" element={<ConversationalReport />} />
+                <Route path="reports/ai-generated" element={<AIGeneratedReport />} />
+                <Route path="reports/:id" element={<ReportDetail />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
+            </Routes>
+          </div>
         </Router>
       </QueryClientProvider>
     </ErrorBoundary>

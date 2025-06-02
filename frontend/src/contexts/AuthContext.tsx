@@ -25,7 +25,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Configure axios defaults
-axios.defaults.baseURL = 'http://localhost:8765/api';
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 // Add token to requests if available
 axios.interceptors.request.use(

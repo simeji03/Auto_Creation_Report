@@ -3,7 +3,7 @@ import apiKeyService from './apiKeyService';
 
 // APIクライアントのインスタンス
 export const api = axios.create({
-  baseURL: 'http://localhost:8765/api',
+  baseURL: 'http://localhost:8000/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -34,12 +34,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // 認証エラーの場合はログイン画面へ
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
-    }
+    // 認証無効化版 - 401エラーでリダイレクトしない
+    console.error('API Error:', error.response?.status, error.message);
     return Promise.reject(error);
   }
 );

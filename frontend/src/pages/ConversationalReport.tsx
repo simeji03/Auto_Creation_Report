@@ -198,8 +198,23 @@ const ConversationalReport: React.FC = () => {
   const startConversation = async () => {
     setIsLoading(true);
     try {
-      const response = await api.post('/conversation/start');
-      setSession(response.data);
+      const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM format
+      const response = await fetch('http://localhost:8000/api/conversation/start', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          report_month: currentMonth
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to start conversation');
+      }
+      
+      const data = await response.json();
+      setSession(data);
       toast.success('対話型月報作成を開始しました');
     } catch (error) {
       console.error('セッション開始エラー:', error);
@@ -264,13 +279,23 @@ const ConversationalReport: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const response = await api.post('/conversation/answer', {
-        session_id: session.session_id,
-        answer: currentAnswer.trim(),
-        session_data: session.session_data
+      const response = await fetch('http://localhost:8000/api/conversation/answer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          session_id: session.session_id,
+          answer: currentAnswer.trim(),
+          session_data: session.session_data
+        })
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit answer');
+      }
 
-      const newSession = response.data;
+      const newSession = await response.json();
       setSession(newSession);
       setCurrentAnswer('');
       setInterimText('');
@@ -455,19 +480,30 @@ const ConversationalReport: React.FC = () => {
         }
       }
 
-      // 直接月報生成APIを呼び出し
-      const response = await api.post('/conversation/generate-report', testSessionData);
-      if (response.data.ai_generated_content) {
+      // 新しいテストデータAPIを使用
+      const response = await fetch('http://localhost:8000/api/test/generate-test-report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to generate test report');
+      }
+      
+      const responseData = await response.json();
+      if (responseData.ai_generated_content) {
         // AI生成コンテンツがある場合は、AI月報表示画面に遷移
         navigate('/reports/ai-generated', { 
           state: { 
-            aiContent: response.data.ai_generated_content,
-            reportId: response.data.report_id 
+            aiContent: responseData.ai_generated_content,
+            reportId: responseData.report_id 
           } 
         });
       } else {
         // 従来の月報詳細画面に遷移
-        navigate(`/reports/${response.data.report_id}`);
+        navigate(`/reports/${responseData.report_id}`);
       }
       toast.success('テストデータで月報を生成しました！');
     } catch (error) {
@@ -488,19 +524,31 @@ const ConversationalReport: React.FC = () => {
         toast.info('📝 標準形式で月報を生成中...');
       }
       
-      const response = await api.post('/conversation/generate-report', sessionData);
-      if (response.data.ai_generated_content) {
+      const response = await fetch('http://localhost:8000/api/conversation/generate-report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sessionData)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to generate report');
+      }
+      
+      const responseData = await response.json();
+      if (responseData.ai_generated_content) {
         // AI生成コンテンツがある場合は、AI月報表示画面に遷移
         navigate('/reports/ai-generated', { 
           state: { 
-            aiContent: response.data.ai_generated_content,
-            reportId: response.data.report_id 
+            aiContent: responseData.ai_generated_content,
+            reportId: responseData.report_id 
           } 
         });
         toast.success('🎉 AI月報が正常に生成されました！');
       } else {
         // 従来の月報詳細画面に遷移
-        navigate(`/reports/${response.data.report_id}`);
+        navigate(`/reports/${responseData.report_id}`);
         toast.success('📄 標準月報が正常に生成されました！');
       }
     } catch (error) {

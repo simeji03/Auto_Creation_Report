@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { useAuth } from '../contexts/AuthContext';
-import { api } from '../services/api';
+// import { useQuery } from 'react-query';
+// import { api } from '../services/api';
 
 interface MonthlyStats {
   month: string;
@@ -29,37 +28,41 @@ interface RecentReport {
 }
 
 const Dashboard: React.FC = () => {
-  const { user } = useAuth();
+  // 認証機能無効化版 - 実際のAPIからデータを取得
+  const user = { name: 'ユーザー' };
+  const [stats, setStats] = React.useState({ total_reports: 0, total_income: 0 });
+  const [recentReports, setRecentReports] = React.useState<RecentReport[]>([]);
+  const [statsLoading, setStatsLoading] = React.useState(true);
+  const [reportsLoading, setReportsLoading] = React.useState(true);
 
-  // ユーザー統計情報の取得
-  const { data: stats, isLoading: statsLoading } = useQuery<UserStats>(
-    'userStats',
-    async () => {
-      const response = await api.get('/users/stats');
-      return response.data;
-    },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-
-  // 最近の月報の取得
-  const { data: recentReports, isLoading: reportsLoading } = useQuery<RecentReport[]>(
-    'recentReports',
-    async () => {
-      const response = await api.get('/reports/', {
-        params: { page: 1, size: 5 },
-      });
-      // APIが直接配列を返す場合と、itemsプロパティを持つ場合の両方に対応
-      if (Array.isArray(response.data)) {
-        return response.data;
+  // データ取得
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // 月報データを取得（統計用に多めに取得）
+        const response = await fetch('http://localhost:8000/api/reports/?page=1&size=50');
+        if (response.ok) {
+          const data = await response.json();
+          // 最新5件のみを表示用に保存
+          setRecentReports(data.slice(0, 5));
+          
+          // 統計データを計算（全データを使用）
+          const totalIncome = data.reduce((sum: number, report: any) => sum + (report.received_amount || 0), 0);
+          setStats({
+            total_reports: data.length,
+            total_income: totalIncome
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch dashboard data:', error);
+      } finally {
+        setStatsLoading(false);
+        setReportsLoading(false);
       }
-      return response.data.items || [];
-    },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+    };
+
+    fetchData();
+  }, []);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('ja-JP', {
@@ -80,7 +83,7 @@ const Dashboard: React.FC = () => {
           ダッシュボード
         </h1>
         <p className="mt-2 text-gray-600">
-          {user?.name}さん、お疲れ様です。月報管理システムへようこそ。
+          月報作成支援ツールへようこそ。簡単に美しい月報を作成できます。
         </p>
       </div>
 

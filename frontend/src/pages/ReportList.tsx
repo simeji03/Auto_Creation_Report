@@ -42,22 +42,27 @@ const ReportList: React.FC = () => {
     ['reports', page, searchTerm],
     async () => {
       try {
-        const response = await api.get('/reports', {
-          params: {
-            page,
-            size: pageSize,
-            search: searchTerm || undefined,
-          },
+        const params = new URLSearchParams({
+          page: page.toString(),
+          size: pageSize.toString(),
+          ...(searchTerm && { search: searchTerm })
         });
+        const response = await fetch(`http://localhost:8000/api/reports/?${params}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch reports');
+        }
+        
+        const responseData = await response.json();
         
         // レスポンスデータの構造を検証
-        if (!response.data) {
+        if (!responseData) {
           throw new Error('No response data');
         }
         
-        // APIが直接配列を返す場合（実際の仕様）をページネーション構造に変換
-        if (Array.isArray(response.data)) {
-          const items = response.data;
+        // APIが直接配列を返す場合（後方互換性）
+        if (Array.isArray(responseData)) {
+          const items = responseData;
           return {
             items: items,
             total: items.length,
@@ -67,9 +72,9 @@ const ReportList: React.FC = () => {
           };
         }
         
-        // 既にページネーション構造の場合（将来的な拡張用）
-        if (typeof response.data === 'object' && 'items' in response.data) {
-          return response.data;
+        // ページネーション構造の場合（新形式）
+        if (typeof responseData === 'object' && 'items' in responseData) {
+          return responseData;
         }
         
         // デフォルト値を返す
@@ -107,7 +112,13 @@ const ReportList: React.FC = () => {
     }
 
     try {
-      await api.delete(`/reports/${id}`);
+      const response = await fetch(`http://localhost:8000/api/reports/${id}`, {
+        method: 'DELETE'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to delete report');
+      }
       
       // キャッシュを更新
       await queryClient.invalidateQueries(['reports']);
