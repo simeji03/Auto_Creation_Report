@@ -4,16 +4,21 @@
 
 ## 🚀 クイックスタート（3分で起動）
 
-### Cursorユーザー向け（推奨）
+### 🎯 初心者向け（中学生でもOK）
+**簡単3ステップ**：
 1. **Docker Desktop**をインストール（[Mac](https://www.docker.com/products/docker-desktop/) / [Windows](https://www.docker.com/products/docker-desktop/)）
-2. このリポジトリをダウンロード
+2. [**リリースページ**](https://github.com/simeji03/Auto_Creation_Report/releases)から`monthly-report-v1.0.0.zip`をダウンロード
 3. **ダブルクリックで起動**：
    - Mac: `cursor-setup.command`
    - Windows: `cursor-setup.bat`
 
-詳細は[CURSOR_USER_GUIDE.md](CURSOR_USER_GUIDE.md)を参照
+### 📖 詳しい説明書
+- 🎯 **[超簡単ガイド](BEGINNER_GUIDE.md)** - 中学生向け完全版
+- 📸 **[画面付きガイド](STEP_BY_STEP_SCREENSHOTS.md)** - 迷子にならない手順書
+- ⚡ **[1分ガイド](SIMPLE_STARTUP_GUIDE.md)** - チェックリスト形式
+- 🌟 **[小学生版](ELEMENTARY_README.md)** - ゲーム感覚で学べる
 
-### 開発者向け
+### 🔧 技術者向け
 ```bash
 git clone https://github.com/simeji03/Auto_Creation_Report.git
 cd Auto_Creation_Report
