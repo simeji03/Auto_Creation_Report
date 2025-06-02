@@ -2,25 +2,42 @@
 
 コミュニティメンバーの月報作成時間を大幅に短縮し、より見やすく伝わりやすい月報を簡単に作成できるWebアプリケーションです。
 
-## 🚀 クイックスタート（3分で起動）
+## 🚀 超簡単スタート（パソコン初心者でもOK！）
 
-### 🎯 初心者向け（中学生でもOK）
-**簡単3ステップ**：
-1. [**リリースページ**](https://github.com/simeji03/Auto_Creation_Report/releases/latest)から最新版をダウンロード
-2. **ファイルを解凍**して、フォルダを開く
-3. **ダブルクリックで起動**：
-   - Mac・Linux: `manual-start.sh`をダブルクリック
-   - Windows: コマンドプロンプトでフォルダを開き、手動で起動（下記参照）
+### 📥 ステップ1: ファイルをダウンロードする
 
-### ⚡ 超簡単起動（推奨）
-ダウンロード後、解凍したフォルダで：
-```bash
-# このコマンド1つだけ！
-./manual-start.sh
-```
+1. **このリンクをクリック**: [**最新版をダウンロード**](https://github.com/simeji03/Auto_Creation_Report/releases/latest)
+2. 新しいページが開いたら、**下にスクロール**して「Assets」という文字を探す
+3. 「Assets」の下にある **「Source code (zip)」** をクリック
+4. ファイルがダウンロードされます（普通は「ダウンロード」フォルダに保存されます）
 
-数秒後、自動でブラウザが開きます：
-- **アプリ画面**: http://localhost:3456
+### 📂 ステップ2: ファイルを解凍する
+
+**Windowsの場合:**
+1. ダウンロードしたZIPファイル（「Auto_Creation_Report-main.zip」など）を右クリック
+2. 「すべて展開」または「解凍」をクリック
+3. 「展開」ボタンを押す
+
+**Macの場合:**
+1. ダウンロードしたZIPファイルをダブルクリック
+2. 自動で解凍されて、フォルダができます
+
+### 🚀 ステップ3: アプリを起動する
+
+**Macの場合（超簡単）:**
+1. 解凍したフォルダを開く
+2. 「manual-start.sh」というファイルをダブルクリック
+3. 「このファイルを開いてもよろしいですか？」と聞かれたら「開く」をクリック
+4. 黒い画面が出てきて、自動でアプリが起動します
+5. ブラウザが自動で開いて、アプリの画面が表示されます！
+
+**Windowsの場合:**
+- Windowsは少し手順が多いので、下の「Windows詳細手順」を見てください
+
+### ✅ 起動完了の確認
+- ブラウザで月報作成の画面が表示されたら成功です！
+- アドレスバーに「localhost:3456」と表示されていればOK
+- もし開かない場合は、ブラウザのアドレス欄に「localhost:3456」と入力してEnterを押してください
 
 ### 📖 詳しい説明書
 - 🎯 **[超簡単ガイド](BEGINNER_GUIDE.md)** - 中学生向け完全版
@@ -28,7 +45,48 @@
 - ⚡ **[1分ガイド](SIMPLE_STARTUP_GUIDE.md)** - チェックリスト形式
 - 🌟 **[小学生版](ELEMENTARY_README.md)** - ゲーム感覚で学べる
 
-### 🔧 技術者向け（開発環境）
+## 🪟 Windows詳細手順（少し手間がかかります）
+
+### 事前準備（初回のみ）
+Windowsでアプリを動かすには、2つのソフトが必要です：
+
+**Python（プログラムを動かすソフト）**
+1. [Pythonダウンロードページ](https://www.python.org/downloads/)を開く
+2. 「Download Python」の黄色いボタンをクリック
+3. ダウンロードしたファイルをダブルクリックしてインストール
+4. ⚠️ **重要**: インストール時に「Add Python to PATH」にチェックを入れる
+
+**Node.js（ウェブ画面を表示するソフト）**
+1. [Node.jsダウンロードページ](https://nodejs.org/)を開く
+2. 左の「LTS」版（推奨版）をクリックしてダウンロード
+3. ダウンロードしたファイルをダブルクリックしてインストール
+
+### Windows起動手順
+1. **解凍したフォルダを開く**
+2. **フォルダの中で右クリック** → 「ターミナルで開く」または「PowerShellで開く」をクリック
+3. **黒い画面（ターミナル）が開いたら**、以下を1行ずつコピペして実行：
+
+```
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python main.py
+```
+
+4. **新しいターミナルを開く**（もう一度フォルダで右クリック → ターミナル）
+5. **以下を実行**：
+
+```
+cd frontend
+npm install
+npm start
+```
+
+6. **ブラウザが自動で開く**か、手動で「localhost:3456」を開く
+
+### 🔧 開発者向け（プログラマー用）
+既にPython・Node.jsが入っている場合：
 ```bash
 git clone https://github.com/simeji03/Auto_Creation_Report.git
 cd Auto_Creation_Report
@@ -67,79 +125,28 @@ cd Auto_Creation_Report
 - **AI機能**: OpenAI API (GPT-4)
 - **認証**: JWT + セキュアセッション管理
 
-## 🚀 詳細セットアップ方法
 
-### 📦 ダウンロード版（推奨）
+## 🤖 AI月報機能を使いたい場合（オプション）
 
-**Mac・Linux**
-1. [最新リリース](https://github.com/simeji03/Auto_Creation_Report/releases/latest)をダウンロード
-2. ZIPファイルを解凍
-3. `manual-start.sh`をダブルクリック
-4. ブラウザで http://localhost:3456 を開く
+このアプリにはAIが月報を自動で作ってくれる機能があります！使いたい場合は以下の手順でAPIキーを設定してください：
 
-**Windows**  
-1. [最新リリース](https://github.com/simeji03/Auto_Creation_Report/releases/latest)をダウンロード
-2. ZIPファイルを解凍
-3. コマンドプロンプト（cmd）を開き、解凍したフォルダに移動
-4. 以下のコマンドを実行：
-```cmd
-cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-python main.py
-```
-5. 新しいコマンドプロンプトを開き：
-```cmd
-cd frontend  
-npm install
-npm start
-```
-6. ブラウザで http://localhost:3456 を開く
+### 💳 OpenAI APIキーの取得（有料）
+1. **[OpenAIのサイト](https://platform.openai.com/)** を開く
+2. **「Sign up」** または **「Log in」** でアカウントを作る
+3. 右上の **「API keys」** をクリック
+4. **「Create new secret key」** をクリック
+5. **APIキー（sk-で始まる長い文字列）** をコピーして保存
 
-### 🛠️ 開発環境セットアップ
-開発に参加する場合のみ：
+⚠️ **料金について**: OpenAI APIは使った分だけお金がかかります（月数百円程度）
 
-**必要環境**
-- Node.js 18+
-- Python 3.9+
+### ⚙️ アプリでの設定方法
+1. **月報アプリを開く**
+2. **右上の⚙️マーク** をクリック
+3. **「OpenAI APIキー」の欄** にコピーしたキーを貼り付け
+4. **「保存」ボタン** をクリック
+5. **「APIキーをテスト」** で動作確認
 
-**手順**
-```bash
-# 1. リポジトリクローン
-git clone https://github.com/simeji03/Auto_Creation_Report.git
-cd Auto_Creation_Report
-
-# 2. 依存関係インストール
-cd backend && pip install -r requirements.txt
-cd ../frontend && npm install
-
-# 3. 起動
-cd .. && ./manual-start.sh
-```
-
-**アクセス先**
-- フロントエンド: http://localhost:3456  
-- バックエンドAPI: http://localhost:8000
-
-### 🔑 AI機能を使用するための設定
-
-AI月報生成機能を使用するには、OpenAI APIキーの設定が必要です。
-
-#### OpenAI APIキーの取得
-1. [OpenAI Platform](https://platform.openai.com/) にアクセス
-2. アカウント作成・ログイン
-3. API Keys ページでAPIキーを作成
-4. 作成されたAPIキー（`sk-`で始まる文字列）をコピー
-
-#### アプリケーション内での設定
-1. アプリケーションにログイン
-2. 右上の⚙️設定アイコンをクリック
-3. 「OpenAI APIキー」欄にAPIキーを入力
-4. 「保存」ボタンをクリック
-5. 「APIキーをテスト」で接続確認
-
-> **💡 セキュリティ**: APIキーは各ユーザーのブラウザのローカルストレージに保存され、サーバーには保存されません。
+💡 **安心**: APIキーはあなたのパソコンにだけ保存され、外部に送信されません。
 
 ## 📱 使い方
 
@@ -170,30 +177,54 @@ AI月報生成機能を使用するには、OpenAI APIキーの設定が必要�
 - **プライバシー保護**: 個人情報の適切な管理
 - **バックアップ**: 定期的なデータバックアップ
 
-## ⚠️ トラブルシューティング
+## 😵 困った時の解決方法
 
-### よくある問題と解決方法
+### 🚫 「アプリが起動しない」場合
 
-**❌ 「ポートが使用中です」エラー**
-```bash
-# 既存のプロセスを停止
-pkill -f "uvicorn"
-pkill -f "react-scripts"
-# 再度起動
-./manual-start.sh
+**Macで「開発元が未確認」と出る場合:**
+1. **「manual-start.sh」を右クリック**
+2. **「開く」を選択**
+3. **「開く」をもう一度クリック**
+
+**Windowsで「コマンドが見つからない」と出る場合:**
+1. **PythonとNode.jsがインストールされているか確認**
+2. スタートメニューで「cmd」と検索 → コマンドプロンプトを開く
+3. 「python --version」と入力してEnter（バージョンが表示されればOK）
+4. 「node --version」と入力してEnter（バージョンが表示されればOK）
+
+### 🌐 「ブラウザが開かない」場合
+
+1. **ブラウザ（Chrome、Safari、Edgeなど）を手動で開く**
+2. **アドレス欄に「localhost:3456」と入力**してEnter
+3. 月報作成画面が表示されればOK！
+
+### 🔴 「既に使用中」エラーが出る場合
+
+**Mac・Linux:**
+1. **ターミナルを開く**
+2. 以下をコピペして実行：
 ```
+sudo pkill -f python
+sudo pkill -f node
+```
+3. パスワードを入力（画面には表示されません）
+4. もう一度アプリを起動
 
-**❌ 「コマンドが見つかりません」エラー**
-- Mac: `chmod +x manual-start.sh` 実行後、再試行
-- Windows: Python と Node.js がインストールされているか確認
+**Windows:**
+1. **Ctrl + Shift + Esc** でタスクマネージャーを開く
+2. **「python.exe」と「node.exe」を探して終了**
+3. もう一度アプリを起動
 
-**❌ ブラウザで開かない**
-- 手動で http://localhost:3456 を開く
-- ファイアウォールがポート3456をブロックしていないか確認
+### 🤖 「AI機能が使えない」場合
 
-**❌ AI機能が動かない**
-- アプリ内の設定でOpenAI APIキーを設定
-- APIキーが有効か確認（OpenAI Platform でクレジット残高確認）
+1. **OpenAI APIキーが正しく設定されているか確認**
+2. **[OpenAIのサイト](https://platform.openai.com/usage)** でクレジット残高を確認
+3. 残高が0の場合は、クレジットカードで支払い設定をする
+
+### 📞 それでも解決しない場合
+
+**GitHub Issues** でお気軽に質問してください：
+[**質問・報告はこちら**](https://github.com/simeji03/Auto_Creation_Report/issues)
 
 ## 🤝 コントリビューション
 
