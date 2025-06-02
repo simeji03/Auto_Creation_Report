@@ -1,6 +1,0 @@
-{
-  "email": "test1748758735@example.com",
-  "password": "Test123!",
-  "name": "Test User 1748758735"
-}
-EOF && curl -s -X POST http://localhost:8765/api/auth/register -H "Content-Type: application/json" -d @test_register_1748758735.json < /dev/null
