@@ -50,7 +50,11 @@ const Dashboard: React.FC = () => {
       const response = await api.get('/reports/', {
         params: { page: 1, size: 5 },
       });
-      return response.data.items || response.data;
+      // APIが直接配列を返す場合と、itemsプロパティを持つ場合の両方に対応
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+      return response.data.items || [];
     },
     {
       refetchOnWindowFocus: false,
