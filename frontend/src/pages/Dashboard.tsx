@@ -133,13 +133,7 @@ const Dashboard: React.FC = () => {
           <h2 className="text-lg font-medium text-gray-900 mb-4">
             クイックアクション
           </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-            <Link
-              to="/reports/new"
-              className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              通常の月報作成
-            </Link>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <Link
               to="/reports/conversation"
               className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
@@ -230,10 +224,10 @@ const Dashboard: React.FC = () => {
             <div className="text-center py-8">
               <p className="text-gray-500 mb-4">まだ月報がありません</p>
               <Link
-                to="/reports/new"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                to="/reports/conversation"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
               >
-                最初の月報を作成
+                🎤 対話で月報を作成
               </Link>
             </div>
           )}

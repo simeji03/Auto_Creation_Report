@@ -6,10 +6,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import CreateReport from './pages/CreateReport';
 import ReportList from './pages/ReportList';
 import ReportDetail from './pages/ReportDetail';
 import ConversationalReport from './pages/ConversationalReport';
+import AIGeneratedReport from './pages/AIGeneratedReport';
 
 // レイアウトコンポーネント
 import Layout from './components/Layout';
@@ -42,8 +42,8 @@ function App() {
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Dashboard />} />
                   <Route path="reports" element={<ReportList />} />
-                  <Route path="reports/new" element={<CreateReport />} />
                   <Route path="reports/conversation" element={<ConversationalReport />} />
+                  <Route path="reports/ai-generated" element={<AIGeneratedReport />} />
                   <Route path="reports/:id" element={<ReportDetail />} />
                 </Route>
               </Routes>

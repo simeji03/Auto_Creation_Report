@@ -448,3 +448,154 @@ INFO:     127.0.0.1:62153 - "OPTIONS /api/reports/5 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62153 - "GET /api/reports/5 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62153 - "GET /api/users/stats HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62190 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [70118]
+INFO:     Started server process [74884]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [74884]
+INFO:     Started server process [75006]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [75006]
+INFO:     Started server process [75070]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [75070]
+INFO:     Started server process [75101]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [75101]
+INFO:     Started server process [75208]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:62305 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62306 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62306 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62305 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62348 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62347 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62347 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62348 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62452 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62452 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62568 - "OPTIONS /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62568 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62733 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62888 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63140 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63323 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63782 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63856 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63906 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64096 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64267 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64330 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64431 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64520 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64602 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64653 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64793 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64847 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65069 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65207 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "OPTIONS /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "POST /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "OPTIONS /api/reports/7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "GET /api/reports/7 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [75208]
+INFO:     Started server process [80415]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [80415]
+INFO:     Started server process [80797]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [80797]
+INFO:     Started server process [80833]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57485 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57486 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57486 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57485 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57514 - "OPTIONS /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57514 - "POST /api/conversation/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57553 - "OPTIONS /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57553 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57553 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57673 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57717 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57767 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57830 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57884 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/answer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "OPTIONS /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /api/conversation/generate-report HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "OPTIONS /api/reports/8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "GET /api/reports/8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58244 - "DELETE /api/reports/8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58244 - "OPTIONS /api/reports?page=1&size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58244 - "GET /api/reports?page=1&size=10 HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:58244 - "OPTIONS /api/reports/?page=1&size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58244 - "GET /api/reports/?page=1&size=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61211 - "OPTIONS /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61212 - "OPTIONS /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61212 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61211 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61369 - "GET /api/users/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61371 - "GET /api/reports/?page=1&size=5 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'routers/conversation.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [80833]
+INFO:     Started server process [88380]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56277 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56279 - "GET /api/reports HTTP/1.1" 307 Temporary Redirect

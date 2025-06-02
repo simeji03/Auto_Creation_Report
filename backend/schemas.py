@@ -217,6 +217,35 @@ class PaginationParams(BaseModel):
 class PaginatedResponse(BaseModel):
     items: List[Any]
     total: int
+
+# 対話型月報関連スキーマ
+class ConversationSession(BaseModel):
+    user_id: int
+    current_category: str = ""
+    current_question_index: int = 0
+    answers: Dict[str, Any] = {}
+    completed_categories: List[str] = []
+
+class ConversationResponse(BaseModel):
+    session_id: str
+    question: Optional[str] = None
+    question_type: str
+    category: str
+    progress: int
+    total_questions: int
+    session_data: ConversationSession
+    is_complete: bool = False
+    example: Optional[str] = None
+
+class ConversationAnswerRequest(BaseModel):
+    session_id: str
+    answer: str
+    session_data: ConversationSession
+
+class QuestionResponse(BaseModel):
+    question: str
+    type: str
+    example: Optional[str] = None
     page: int
     size: int
     pages: int
@@ -293,4 +322,4 @@ class ConversationResponse(BaseModel):
     total_questions: int
     session_data: Dict[str, Any]
     is_complete: bool = False
-    follow_up_question: Optional[str] = None
+    example: Optional[str] = None

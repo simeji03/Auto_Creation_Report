@@ -11,10 +11,15 @@ from pathlib import Path
 
 def start_frontend_server():
     """フロントエンド配信サーバーを起動"""
-    PORT = 3000
+    PORT = 8080
 
-    # カレントディレクトリを設定
-    web_dir = Path(__file__).parent
+    # フロントエンドのビルドディレクトリを設定
+    web_dir = Path(__file__).parent / "frontend" / "build"
+    if not web_dir.exists():
+        print(f"❌ ビルドディレクトリが見つかりません: {web_dir}")
+        print("📦 先に 'cd frontend && npm run build' を実行してください")
+        return
+    
     os.chdir(web_dir)
 
     Handler = http.server.SimpleHTTPRequestHandler
@@ -25,16 +30,22 @@ def start_frontend_server():
             self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
             self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
             super().end_headers()
+        
+        def do_GET(self):
+            # React Routerのクライアントサイドルーティングのため、
+            # 存在しないパスでもindex.htmlを返す
+            if self.path != '/' and not self.path.startswith('/static') and not self.path.endswith(('.js', '.css', '.json', '.ico', '.png', '.jpg', '.jpeg', '.gif', '.svg')):
+                self.path = '/'
+            return Handler.do_GET(self)
 
     with socketserver.TCPServer(("", PORT), CORSRequestHandler) as httpd:
         print(f"🌐 フロントエンドサーバーが起動しました")
         print(f"📍 URL: http://localhost:{PORT}")
-        print(f"📋 テストページ: http://localhost:{PORT}/test-frontend.html")
         print(f"🛑 停止するには Ctrl+C を押してください")
 
         # ブラウザを自動で開く
         try:
-            webbrowser.open(f'http://localhost:{PORT}/test-frontend.html')
+            webbrowser.open(f'http://localhost:{PORT}')
         except:
             pass
 

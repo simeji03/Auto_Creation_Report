@@ -24,8 +24,8 @@ else
 fi
 
 # フロントエンドが既に起動しているかチェック
-if curl -s http://localhost:3000 > /dev/null 2>&1; then
-    echo "✅ フロントエンドは既に起動しています (http://localhost:3000)"
+if curl -s http://localhost:8080 > /dev/null 2>&1; then
+    echo "✅ フロントエンドは既に起動しています (http://localhost:8080)"
 else
     echo "🌐 フロントエンドを起動しています..."
     python3 serve-frontend.py &
@@ -34,7 +34,7 @@ else
     # 起動まで待機
     echo "⏳ フロントエンドの起動を待機中..."
     for i in {1..10}; do
-        if curl -s http://localhost:3000 > /dev/null 2>&1; then
+        if curl -s http://localhost:8080 > /dev/null 2>&1; then
             echo "✅ フロントエンドが起動しました (PID: $FRONTEND_PID)"
             break
         fi
@@ -46,12 +46,12 @@ echo ""
 echo "🎉 テスト環境の起動が完了しました！"
 echo ""
 echo "📍 アクセス情報:"
-echo "   🌐 フロントエンド: http://localhost:3000/test-frontend.html"
+echo "   🌐 フロントエンド: http://localhost:8080/test-frontend.html"
 echo "   🔧 バックエンドAPI: http://localhost:8765"
 echo "   📋 ヘルスチェック: http://localhost:8765/health"
 echo ""
 echo "🧪 テスト手順:"
-echo "   1. ブラウザで http://localhost:3000/test-frontend.html を開く"
+echo "   1. ブラウザで http://localhost:8080/test-frontend.html を開く"
 echo "   2. '全テスト実行' ボタンをクリック"
 echo "   3. 各機能を手動でテスト"
 echo ""

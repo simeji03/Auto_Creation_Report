@@ -164,7 +164,7 @@ const CreateReport: React.FC = () => {
             
             <div>
               <label htmlFor="current_phase" className="block text-sm font-medium text-gray-700">
-                現在のフェーズ
+                どんな暮らしや働き方を目指してる？
               </label>
               <input
                 type="text"
@@ -172,14 +172,14 @@ const CreateReport: React.FC = () => {
                 id="current_phase"
                 value={formData.current_phase}
                 onChange={handleChange}
-                placeholder="例: 開発フェーズ"
+                placeholder="例：子どもの送迎をしながら、週4稼働で月50万円。自分の好きな仕事だけで生計を立てたい。"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
             
             <div className="sm:col-span-2">
               <label htmlFor="family_status" className="block text-sm font-medium text-gray-700">
-                家族の状況
+                家庭や生活で何か変化や大きな出来事はあった？
               </label>
               <input
                 type="text"
@@ -187,7 +187,7 @@ const CreateReport: React.FC = () => {
                 id="family_status"
                 value={formData.family_status}
                 onChange={handleChange}
-                placeholder="例: 健康"
+                placeholder="例：子どもが発熱で2日休み。夫が出張でワンオペ多めだった。健康診断で再検査の連絡がきた。"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -196,11 +196,11 @@ const CreateReport: React.FC = () => {
 
         {/* 稼働時間 */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">稼働時間</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">今月の稼働時間・収入</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label htmlFor="coding_hours" className="block text-sm font-medium text-gray-700">
-                コーディング時間（時間）
+                案件作業時間（時間）
               </label>
               <input
                 type="number"
@@ -216,7 +216,7 @@ const CreateReport: React.FC = () => {
             
             <div>
               <label htmlFor="meeting_hours" className="block text-sm font-medium text-gray-700">
-                会議時間（時間）
+                会議・打ち合わせ時間（時間）
               </label>
               <input
                 type="number"
@@ -232,7 +232,7 @@ const CreateReport: React.FC = () => {
             
             <div>
               <label htmlFor="sales_hours" className="block text-sm font-medium text-gray-700">
-                営業時間（時間）
+                営業・学習時間（時間）
               </label>
               <input
                 type="number"
@@ -265,7 +265,7 @@ const CreateReport: React.FC = () => {
 
         {/* 営業活動 */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">営業活動</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">今月やったこと（営業・案件・学び）</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <label htmlFor="sales_emails_sent" className="block text-sm font-medium text-gray-700">
@@ -372,7 +372,7 @@ const CreateReport: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label htmlFor="good_points" className="block text-sm font-medium text-gray-700">
-                  良かった点
+                  今月「これできるようになった！」と思えた成長や変化
                 </label>
                 <button
                   type="button"
@@ -389,13 +389,14 @@ const CreateReport: React.FC = () => {
                 rows={3}
                 value={formData.good_points}
                 onChange={handleChange}
+                placeholder="例：外注にタスクを振るのが前よりスムーズになった。コーディングのスピードが上がった。"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
             
             <div>
               <label htmlFor="challenges" className="block text-sm font-medium text-gray-700">
-                課題・反省点
+                今月「これは大変だった」「困ったな」と思ったこと
               </label>
               <textarea
                 name="challenges"
@@ -403,6 +404,7 @@ const CreateReport: React.FC = () => {
                 rows={3}
                 value={formData.challenges}
                 onChange={handleChange}
+                placeholder="例：営業を後回しにしてしまい動けなかった。子どもの送迎でスケジュールが崩れた。"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -410,7 +412,7 @@ const CreateReport: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label htmlFor="improvements" className="block text-sm font-medium text-gray-700">
-                  改善点
+                  今月「これ気づいた！」とか「こうすればよかった！」と思ったこと
                 </label>
                 <button
                   type="button"
@@ -427,6 +429,7 @@ const CreateReport: React.FC = () => {
                 rows={3}
                 value={formData.improvements}
                 onChange={handleChange}
+                placeholder="例：タスクは翌日に持ち越さず、その日のうちに終わらせた方が楽だった。外注を使うと負担が減ると気づいた。"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -434,7 +437,7 @@ const CreateReport: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label htmlFor="next_month_goals" className="block text-sm font-medium text-gray-700">
-                  来月の目標
+                  来月の目標・力を入れたいこと
                 </label>
                 <button
                   type="button"
@@ -451,6 +454,7 @@ const CreateReport: React.FC = () => {
                 rows={3}
                 value={formData.next_month_goals}
                 onChange={handleChange}
+                placeholder="例：営業50件送信、案件3件納品、家庭時間を増やす、外注活用を1件以上試す。"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
