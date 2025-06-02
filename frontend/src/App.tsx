@@ -10,6 +10,7 @@ import ReportList from './pages/ReportList';
 import ReportDetail from './pages/ReportDetail';
 import ConversationalReport from './pages/ConversationalReport';
 import AIGeneratedReport from './pages/AIGeneratedReport';
+import Settings from './pages/Settings';
 
 // レイアウトコンポーネント
 import Layout from './components/Layout';
@@ -45,6 +46,7 @@ function App() {
                   <Route path="reports/conversation" element={<ConversationalReport />} />
                   <Route path="reports/ai-generated" element={<AIGeneratedReport />} />
                   <Route path="reports/:id" element={<ReportDetail />} />
+                  <Route path="settings" element={<Settings />} />
                 </Route>
               </Routes>
             </div>

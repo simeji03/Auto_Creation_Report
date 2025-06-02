@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { toast } from '../utils/toast';
+import apiKeyService from '../services/apiKeyService';
 
 interface ConversationSession {
   session_id: string;
@@ -24,9 +25,27 @@ const ConversationalReport: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
   const [isListening, setIsListening] = useState(false);
+  const [hasApiKey, setHasApiKey] = useState(false);
   const isUserStoppedRef = useRef(false);
   const recognitionInstanceRef = useRef<any>(null);
   const finalTranscriptRef = useRef('');
+
+  // APIキーの確認
+  useEffect(() => {
+    const checkApiKey = () => {
+      setHasApiKey(apiKeyService.hasApiKey());
+    };
+    
+    checkApiKey();
+    
+    // ページがフォーカスされた時にも確認（設定画面から戻ってきた時など）
+    const handleFocus = () => checkApiKey();
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
 
   // 音声認識の初期化（一度だけ実行）
   useEffect(() => {
@@ -504,6 +523,31 @@ const ConversationalReport: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
+          {/* APIキー未設定の警告 */}
+          {!hasApiKey && (
+            <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-start space-x-3">
+                <svg className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-yellow-800 mb-1">
+                    ⚠️ OpenAI APIキーが未設定です
+                  </h3>
+                  <p className="text-sm text-yellow-700 mb-3">
+                    AI月報生成を利用するには、OpenAI APIキーの設定が必要です。
+                  </p>
+                  <Link
+                    to="/settings"
+                    className="inline-flex items-center text-sm text-yellow-800 hover:text-yellow-900 font-medium underline"
+                  >
+                    ⚙️ 設定画面でAPIキーを設定する
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+          
           <div className="text-center">
             <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import apiKeyService from './apiKeyService';
 
 // APIクライアントのインスタンス
 export const api = axios.create({
@@ -8,13 +9,20 @@ export const api = axios.create({
   },
 });
 
-// リクエストインターセプター（認証トークンの追加）
+// リクエストインターセプター（認証トークンとAPIキーの追加）
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    
+    // OpenAI APIキーをヘッダーに追加
+    const apiKey = apiKeyService.getApiKey();
+    if (apiKey) {
+      config.headers['X-OpenAI-API-Key'] = apiKey;
+    }
+    
     return config;
   },
   (error) => {

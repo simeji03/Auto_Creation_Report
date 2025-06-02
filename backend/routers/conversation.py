@@ -2,7 +2,7 @@
 対話型月報生成のAPIエンドポイント
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Header
 from sqlalchemy.orm import Session
 import json
 import re
@@ -343,7 +343,8 @@ async def process_answer(
 async def generate_report_from_conversation(
     session_data: ConversationSession,
     current_user: User = Depends(get_current_active_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    x_openai_api_key: Optional[str] = Header(None)
 ):
     """
     対話の回答からAI生成月報を作成
@@ -359,8 +360,8 @@ async def generate_report_from_conversation(
         
         answers = session_data.answers
     
-        # OpenAI APIキーの設定
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        # OpenAI APIキーの設定（ヘッダー優先、次に環境変数）
+        openai.api_key = x_openai_api_key or os.getenv("OPENAI_API_KEY")
         if not openai.api_key:
             print("OpenAI APIキーが設定されていません - 従来の方式で生成")
             # APIキーがない場合は従来の方式で生成
