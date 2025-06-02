@@ -6,11 +6,21 @@
 
 ### 🎯 初心者向け（中学生でもOK）
 **簡単3ステップ**：
-1. **Docker Desktop**をインストール（[Mac](https://www.docker.com/products/docker-desktop/) / [Windows](https://www.docker.com/products/docker-desktop/)）
-2. [**リリースページ**](https://github.com/simeji03/Auto_Creation_Report/releases)から`monthly-report-v1.0.0.zip`をダウンロード
+1. [**リリースページ**](https://github.com/simeji03/Auto_Creation_Report/releases/latest)から最新版をダウンロード
+2. **ファイルを解凍**して、フォルダを開く
 3. **ダブルクリックで起動**：
-   - Mac: `cursor-setup.command`
-   - Windows: `cursor-setup.bat`
+   - Mac・Linux: `manual-start.sh`をダブルクリック
+   - Windows: コマンドプロンプトでフォルダを開き、手動で起動（下記参照）
+
+### ⚡ 超簡単起動（推奨）
+ダウンロード後、解凍したフォルダで：
+```bash
+# このコマンド1つだけ！
+./manual-start.sh
+```
+
+数秒後、自動でブラウザが開きます：
+- **アプリ画面**: http://localhost:3456
 
 ### 📖 詳しい説明書
 - 🎯 **[超簡単ガイド](BEGINNER_GUIDE.md)** - 中学生向け完全版
@@ -18,11 +28,11 @@
 - ⚡ **[1分ガイド](SIMPLE_STARTUP_GUIDE.md)** - チェックリスト形式
 - 🌟 **[小学生版](ELEMENTARY_README.md)** - ゲーム感覚で学べる
 
-### 🔧 技術者向け
+### 🔧 技術者向け（開発環境）
 ```bash
 git clone https://github.com/simeji03/Auto_Creation_Report.git
 cd Auto_Creation_Report
-./quick-start.sh
+./manual-start.sh
 ```
 
 ## 🎯 主な機能
@@ -57,39 +67,60 @@ cd Auto_Creation_Report
 - **AI機能**: OpenAI API (GPT-4)
 - **認証**: JWT + セキュアセッション管理
 
-## 🚀 セットアップ方法
+## 🚀 詳細セットアップ方法
 
-### 必要環境
-- Node.js 18+
-- Python 3.9+
-- pip, npm
+### 📦 ダウンロード版（推奨）
 
-### セットアップ
+**Mac・Linux**
+1. [最新リリース](https://github.com/simeji03/Auto_Creation_Report/releases/latest)をダウンロード
+2. ZIPファイルを解凍
+3. `manual-start.sh`をダブルクリック
+4. ブラウザで http://localhost:3456 を開く
 
-1. **リポジトリのクローン**
-```bash
-git clone <repository-url>
-cd Auto_Creation_Report
-```
-
-2. **バックエンドセットアップ**
-```bash
+**Windows**  
+1. [最新リリース](https://github.com/simeji03/Auto_Creation_Report/releases/latest)をダウンロード
+2. ZIPファイルを解凍
+3. コマンドプロンプト（cmd）を開き、解凍したフォルダに移動
+4. 以下のコマンドを実行：
+```cmd
 cd backend
+python -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
-python -m uvicorn main:app --reload
+python main.py
 ```
-
-3. **フロントエンドセットアップ**
-```bash
-cd frontend
+5. 新しいコマンドプロンプトを開き：
+```cmd
+cd frontend  
 npm install
 npm start
 ```
+6. ブラウザで http://localhost:3456 を開く
 
-4. **ブラウザでアクセス**
+### 🛠️ 開発環境セットアップ
+開発に参加する場合のみ：
+
+**必要環境**
+- Node.js 18+
+- Python 3.9+
+
+**手順**
+```bash
+# 1. リポジトリクローン
+git clone https://github.com/simeji03/Auto_Creation_Report.git
+cd Auto_Creation_Report
+
+# 2. 依存関係インストール
+cd backend && pip install -r requirements.txt
+cd ../frontend && npm install
+
+# 3. 起動
+cd .. && ./manual-start.sh
 ```
-http://localhost:3456
-```
+
+**アクセス先**
+- フロントエンド: http://localhost:3456  
+- バックエンドAPI: http://localhost:8000
 
 ### 🔑 AI機能を使用するための設定
 
@@ -138,6 +169,31 @@ AI月報生成機能を使用するには、OpenAI APIキーの設定が必要�
 - **セキュアAPI**: HTTPS + JWT認証
 - **プライバシー保護**: 個人情報の適切な管理
 - **バックアップ**: 定期的なデータバックアップ
+
+## ⚠️ トラブルシューティング
+
+### よくある問題と解決方法
+
+**❌ 「ポートが使用中です」エラー**
+```bash
+# 既存のプロセスを停止
+pkill -f "uvicorn"
+pkill -f "react-scripts"
+# 再度起動
+./manual-start.sh
+```
+
+**❌ 「コマンドが見つかりません」エラー**
+- Mac: `chmod +x manual-start.sh` 実行後、再試行
+- Windows: Python と Node.js がインストールされているか確認
+
+**❌ ブラウザで開かない**
+- 手動で http://localhost:3456 を開く
+- ファイアウォールがポート3456をブロックしていないか確認
+
+**❌ AI機能が動かない**
+- アプリ内の設定でOpenAI APIキーを設定
+- APIキーが有効か確認（OpenAI Platform でクレジット残高確認）
 
 ## 🤝 コントリビューション
 
