@@ -9,6 +9,10 @@ import json
 import os
 from datetime import datetime
 import re
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.date_utils import get_report_month
 
 from database import get_db, MonthlyReport
 from schemas import MonthlyReportCreate
@@ -566,12 +570,12 @@ async def generate_report(
     # 既存の月報チェック
     existing_report = db.query(MonthlyReport).filter(
         MonthlyReport.user_id == DEMO_USER_ID,
-        MonthlyReport.report_month == session.get("report_month", datetime.now().strftime("%Y-%m"))
+        MonthlyReport.report_month == session.get("report_month", get_report_month())
     ).first()
     
     report_data = {
         "user_id": DEMO_USER_ID,
-        "report_month": session.get("report_month", datetime.now().strftime("%Y-%m")),
+        "report_month": session.get("report_month", get_report_month()),
         "current_phase": answers.get("ideal_lifestyle", {}).get("answer", ""),
         "family_status": answers.get("life_changes", {}).get("answer", ""),
         "total_work_hours": total_hours,

@@ -196,7 +196,7 @@ async def update_monthly_report(
 
     return MonthlyReportResponse.model_validate(report)
 
-@router.delete("/{report_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{report_id}")
 async def delete_monthly_report(
     report_id: int,
     db: Session = Depends(get_db)
@@ -204,23 +204,59 @@ async def delete_monthly_report(
     """
     月報を削除（認証無効版）
     """
-    report = db.query(MonthlyReport).filter(
-        MonthlyReport.id == report_id,
-        MonthlyReport.user_id == DEMO_USER_ID
-    ).first()
+    try:
+        print(f"削除リクエスト受信: report_id={report_id}")
+        
+        # まず対象月報の存在確認（ユーザーIDに関係なく）
+        report = db.query(MonthlyReport).filter(
+            MonthlyReport.id == report_id
+        ).first()
 
-    if not report:
+        if not report:
+            print(f"月報が見つかりません: report_id={report_id}")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="月報が見つかりません"
+            )
+        
+        print(f"月報を発見: report_id={report_id}, month={report.report_month}")
+
+        try:
+            # 関連する作業時間詳細を削除（Projectは月報と直接関連していない）
+            work_time_count = db.query(WorkTimeDetail).filter(WorkTimeDetail.report_id == report_id).count()
+            
+            print(f"関連データ: work_time_details={work_time_count}")
+            
+            db.query(WorkTimeDetail).filter(WorkTimeDetail.report_id == report_id).delete()
+            # Projectテーブルは月報と直接関連していないため、削除しない
+            
+            db.delete(report)
+            db.commit()
+            
+            print(f"月報削除成功: report_id={report_id}")
+            
+            # 204 No Contentではなく、200 OKでレスポンスを返す
+            return {"message": "月報を削除しました", "report_id": report_id}
+            
+        except Exception as e:
+            print(f"データベース操作エラー: {type(e).__name__}: {e}")
+            db.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"削除処理中にエラーが発生しました: {str(e)}"
+            )
+            
+    except HTTPException:
+        # HTTPExceptionはそのまま再発生
+        raise
+    except Exception as e:
+        print(f"予期しないエラー: {type(e).__name__}: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="月報が見つかりません"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"予期しないエラーが発生しました: {str(e)}"
         )
-
-    # 関連する作業時間詳細とプロジェクトも削除
-    db.query(WorkTimeDetail).filter(WorkTimeDetail.report_id == report_id).delete()
-    db.query(Project).filter(Project.report_id == report_id).delete()
-    
-    db.delete(report)
-    db.commit()
 
 @router.get("/{report_id}/pdf")
 async def download_report_pdf(

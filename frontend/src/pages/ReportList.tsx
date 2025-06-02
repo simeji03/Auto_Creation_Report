@@ -113,7 +113,10 @@ const ReportList: React.FC = () => {
 
     try {
       const response = await fetch(`http://localhost:8000/api/reports/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
       
       if (!response.ok) {

@@ -30,11 +30,6 @@ const AIGeneratedReport: React.FC = () => {
     }
   };
 
-  // 月報詳細画面に移動
-  const goToReportDetail = () => {
-    navigate(`/reports/${reportId}`);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +48,7 @@ const AIGeneratedReport: React.FC = () => {
               </div>
               <p className="text-gray-600">音声入力を基にGPT-4で自動生成された高品質な月報です</p>
             </div>
-            <div className="flex space-x-3">
+            <div className="flex items-center space-x-3">
               {/* 表示モード切替 */}
               <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
@@ -102,16 +97,6 @@ const AIGeneratedReport: React.FC = () => {
                     Notionコピー
                   </>
                 )}
-              </button>
-              
-              <button
-                onClick={goToReportDetail}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-              >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                従来表示
               </button>
             </div>
           </div>
@@ -226,9 +211,9 @@ const AIGeneratedReport: React.FC = () => {
               💡 <strong>使い方のヒント:</strong>
             </p>
             <ul className="text-xs text-blue-700 space-y-1 text-left max-w-md mx-auto">
-              <li>• <strong>リッチ表示</strong>: Notionライクな見やすい表示</li>
-              <li>• <strong>生データ</strong>: 元のMarkdown形式の確認</li>
-              <li>• <strong>Notionコピー</strong>: Notionにそのまま貼り付けられる形式</li>
+              <li>• <strong>リッチ表示</strong>: Notionライクな見やすい表示形式</li>
+              <li>• <strong>生データ</strong>: 元のMarkdown形式でテキストを確認・編集</li>
+              <li>• <strong>Notionコピー</strong>: クリックでNotionに貼り付け可能な形式をコピー</li>
             </ul>
           </div>
           <div>
