@@ -225,53 +225,29 @@ async def generate_report(
             detail="対話が完了していません"
         )
     
-    # 既存の月報チェック
-    existing_report = db.query(MonthlyReport).filter(
-        MonthlyReport.user_id == DEMO_USER_ID,
-        MonthlyReport.report_month == session["report_month"]
-    ).first()
+    # 常に新規月報作成（重複保存を許可）
+    report_data = MonthlyReportCreate(
+        report_month=session["report_month"],
+        **session["answers"]
+    )
     
-    if existing_report:
-        # 既存の月報を更新
-        for field, value in session["answers"].items():
-            if hasattr(existing_report, field):
-                setattr(existing_report, field, value)
-        
-        db.commit()
-        db.refresh(existing_report)
-        
-        # セッション削除
-        del conversation_sessions[session_id]
-        
-        return {
-            "message": "月報が更新されました",
-            "report_id": existing_report.id,
-            "report_month": existing_report.report_month
-        }
-    else:
-        # 新規月報作成
-        report_data = MonthlyReportCreate(
-            report_month=session["report_month"],
-            **session["answers"]
-        )
-        
-        new_report = MonthlyReport(
-            user_id=DEMO_USER_ID,
-            **report_data.model_dump()
-        )
-        
-        db.add(new_report)
-        db.commit()
-        db.refresh(new_report)
-        
-        # セッション削除
-        del conversation_sessions[session_id]
-        
-        return {
-            "message": "月報が作成されました",
-            "report_id": new_report.id,
-            "report_month": new_report.report_month
-        }
+    new_report = MonthlyReport(
+        user_id=DEMO_USER_ID,
+        **report_data.model_dump()
+    )
+    
+    db.add(new_report)
+    db.commit()
+    db.refresh(new_report)
+    
+    # セッション削除
+    del conversation_sessions[session_id]
+    
+    return {
+        "message": "月報が作成されました",
+        "report_id": new_report.id,
+        "report_month": new_report.report_month
+    }
 
 @router.get("/session/{session_id}")
 async def get_session_info(session_id: str):

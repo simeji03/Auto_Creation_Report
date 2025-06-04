@@ -17,7 +17,7 @@ from pdf_generator import generate_report_pdf
 router = APIRouter()
 
 # 固定ユーザーID（認証無効化のため）
-DEMO_USER_ID = 1
+DEMO_USER_ID = 3
 
 @router.get("/")
 async def get_monthly_reports(
@@ -119,17 +119,7 @@ async def create_monthly_report(
     """
     新しい月報を作成（認証無効版）
     """
-    # 同じ月の月報が既に存在するかチェック
-    existing_report = db.query(MonthlyReport).filter(
-        MonthlyReport.user_id == DEMO_USER_ID,
-        MonthlyReport.report_month == report_data.report_month
-    ).first()
-
-    if existing_report:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"{report_data.report_month}の月報は既に存在します"
-        )
+    # 常に新規月報作成（重複保存を許可）
 
     # 月報作成
     new_report = MonthlyReport(
