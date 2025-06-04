@@ -31,6 +31,7 @@ cp Dockerfile.frontend "$RELEASE_DIR/"
 cp Dockerfile.backend "$RELEASE_DIR/"
 # スクリプト
 cp manual-start.sh "$RELEASE_DIR/"
+cp manual-start.command "$RELEASE_DIR/"
 cp manual-start.bat "$RELEASE_DIR/"
 cp first-time-setup.sh "$RELEASE_DIR/"
 cp diagnose.sh "$RELEASE_DIR/"
@@ -48,6 +49,7 @@ cp env.example "$RELEASE_DIR/"
 
 # 実行権限を付与
 chmod +x "$RELEASE_DIR/manual-start.sh"
+chmod +x "$RELEASE_DIR/manual-start.command"
 chmod +x "$RELEASE_DIR/first-time-setup.sh"
 chmod +x "$RELEASE_DIR/diagnose.sh"
 
@@ -88,7 +90,7 @@ cat > "$RELEASE_DIR/README_FIRST.txt" << 'EOF'
    - 詳しくは「DOCKER_INSTALL_GUIDE.md」を参照
 
 2. このフォルダで起動スクリプトを実行
-   - Mac: manual-start.sh をダブルクリック
+   - Mac: manual-start.command をダブルクリック
    - Windows: manual-start.bat を右クリック→管理者として実行
 
 3. ブラウザで月報作成開始！
