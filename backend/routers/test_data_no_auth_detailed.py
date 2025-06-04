@@ -36,7 +36,44 @@ async def generate_test_report(
     
     # AIキーがある場合は詳細版、ない場合は標準版
     if x_openai_api_key or os.getenv("OPENAI_API_KEY"):
-        ai_generated_report = f"""# {year_month} 月報
+        # OpenAI APIを使用して月報を生成
+        try:
+            from openai import OpenAI
+            client = OpenAI(api_key=x_openai_api_key or os.getenv("OPENAI_API_KEY"))
+            
+            prompt = f"""
+あなたは優秀な月報作成アシスタントです。以下の条件で{year_month}の月報を作成してください。
+
+## 条件:
+- 稼働時間: 180時間（案件作業150時間、営業20時間、学習10時間）
+- 収入: 75万円（目標50万円を達成）
+- 営業活動: 50件送信、15件返信、8件面談、3件成約
+- 主な案件: ECサイトLP制作、企業サイト修正、Webアプリ開発など
+- 学習: GitHub Copilot導入、TypeScript学習、Astroフレームワーク学習
+- 家庭: 子どもの学校行事が多い月、在宅ワークの利点を活かして参加
+- 成果: 営業メール返信率30%達成、月収75万円達成、朝型生活の定着
+
+## 出力フォーマット:
+Markdownで2000-3000文字の読みやすい月報を作成してください。
+具体的な数字、感情、体験を含めて人間味のある内容にしてください。
+"""
+            
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "あなたは優秀な月報作成アシスタントです。Markdownフォーマットで詳細な月報を作成してください。"},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=4000,
+                temperature=0.7
+            )
+            
+            ai_generated_report = response.choices[0].message.content
+            
+        except Exception as e:
+            print(f"OpenAI API エラー: {e}")
+            # エラーの場合はテンプレート版を使用
+            ai_generated_report = f"""# {year_month} 月報
 
 お疲れ様です。{year_month}の月報をお送りします。
 

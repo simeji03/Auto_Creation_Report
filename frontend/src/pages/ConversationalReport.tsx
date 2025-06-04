@@ -481,11 +481,19 @@ const ConversationalReport: React.FC = () => {
       }
 
       // 新しいテストデータAPIを使用
+      const headers: { [key: string]: string } = {
+        'Content-Type': 'application/json'
+      };
+
+      // APIキーがある場合は追加
+      const apiKey = localStorage.getItem('openai_api_key');
+      if (apiKey) {
+        headers['X-OpenAI-API-Key'] = apiKey;
+      }
+
       const response = await fetch('http://localhost:8000/api/test/generate-test-report', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers
       });
       
       if (!response.ok) {
@@ -524,11 +532,19 @@ const ConversationalReport: React.FC = () => {
         toast.info('📝 標準形式で月報を生成中...');
       }
       
+      const headers: { [key: string]: string } = {
+        'Content-Type': 'application/json'
+      };
+
+      // APIキーがある場合は追加
+      const apiKey = localStorage.getItem('openai_api_key');
+      if (apiKey) {
+        headers['X-OpenAI-API-Key'] = apiKey;
+      }
+
       const response = await fetch('http://localhost:8000/api/conversation/generate-report', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(sessionData)
       });
       
