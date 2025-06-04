@@ -17,7 +17,7 @@ from pdf_generator import generate_report_pdf
 router = APIRouter()
 
 # 固定ユーザーID（認証無効化のため）
-DEMO_USER_ID = 3
+DEMO_USER_ID = 1
 
 @router.get("/")
 async def get_monthly_reports(
@@ -142,7 +142,7 @@ async def create_monthly_report(
     db.refresh(new_report)
 
     # 作業時間詳細の追加
-    if report_data.work_time_details:
+    if hasattr(report_data, 'work_time_details') and report_data.work_time_details:
         for detail_data in report_data.work_time_details:
             detail = WorkTimeDetail(
                 report_id=new_report.id,
@@ -151,7 +151,7 @@ async def create_monthly_report(
             db.add(detail)
 
     # プロジェクト情報の追加
-    if report_data.projects:
+    if hasattr(report_data, 'projects') and report_data.projects:
         for project_data in report_data.projects:
             project = Project(
                 report_id=new_report.id,
@@ -278,7 +278,12 @@ async def download_report_pdf(
         )
 
     # PDF生成
-    pdf_buffer = generate_report_pdf(report)
+    # 認証なし版ではユーザー情報を取得
+    user = db.query(User).filter(User.id == report.user_id).first()
+    if not user:
+        # ユーザーが見つからない場合はダミーユーザーを作成
+        user = User(id=report.user_id, name="Unknown User", email="unknown@example.com")
+    pdf_buffer = generate_report_pdf(report, user)
     
     # レスポンスとして返す
     headers = {
