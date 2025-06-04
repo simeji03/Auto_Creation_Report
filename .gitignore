@@ -104,3 +104,14 @@ data/
 
 # Backend environment
 backend/.env
+
+# Personal/Test data
+test-env/
+*.backup
+*.bak
+manual-start.sh.backup
+manual-start.bat.backup
+diagnosis_*.txt
+
+# Release files
+release/

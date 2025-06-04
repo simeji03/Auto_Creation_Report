@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   frontend:
     build:
@@ -9,9 +7,15 @@ services:
       - "3456:3456"
     environment:
       - NODE_ENV=production
+      - REACT_APP_API_URL=http://localhost:8000
     depends_on:
       - backend
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3456"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   backend:
     build:
@@ -23,9 +27,14 @@ services:
       - ./data:/app/data
     environment:
       - DATABASE_URL=sqlite:////app/data/monthly_reports.db
-      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-for-production-use}
       - ALLOWED_ORIGINS=http://localhost:3456
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   data:

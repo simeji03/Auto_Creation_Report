@@ -3,103 +3,147 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 
 echo.
-echo 🚀 月報作成支援ツール - Windows版起動スクリプト
-echo ================================================
+echo 🚀 月報作成支援ツール - スマート起動スクリプト
+echo =============================================
 echo.
 
-:: Python環境チェック
-echo 🐍 Python環境をチェック中...
-python --version >nul 2>&1
+:: 管理者権限チェック
+net session >nul 2>&1
 if !errorlevel! neq 0 (
-    echo ❌ Pythonがインストールされていません
+    echo ⚠️  管理者権限が必要です
     echo.
-    echo 📥 Pythonをインストールしてください：
-    echo    1. https://www.python.org/downloads/ を開く
-    echo    2. 「Download Python」黄色いボタンをクリック
-    echo    3. ダウンロードしたファイルをダブルクリック
-    echo    4. ⚠️ 重要：「Add Python to PATH」にチェックを入れる
-    echo    5. インストール完了後、このファイルをもう一度ダブルクリック
+    echo このファイルを右クリックして、
+    echo 「管理者として実行」を選択してください
     echo.
     pause
     exit /b 1
 )
 
-:: Node.js環境チェック
-echo 🟢 Pythonが見つかりました
-echo 📱 Node.js環境をチェック中...
-node --version >nul 2>&1
+:: Docker起動確認
+docker info >nul 2>&1
 if !errorlevel! neq 0 (
-    echo ❌ Node.jsがインストールされていません
+    echo ❌ Dockerが起動していません
     echo.
-    echo 📥 Node.jsをインストールしてください：
-    echo    1. https://nodejs.org/ を開く
-    echo    2. 左の「LTS」版（推奨版）をクリック
-    echo    3. ダウンロードしたファイルをダブルクリック
-    echo    4. インストール完了後、このファイルをもう一度ダブルクリック
+    echo 🐳 Docker Desktopを起動してください：
+    echo    1. スタートメニューから「Docker Desktop」を検索
+    echo    2. Docker Desktopをクリックして起動
+    echo    3. タスクバーにクジラのアイコン🐳が表示されるまで待つ
+    echo    4. このファイルをもう一度実行
     echo.
     pause
     exit /b 1
 )
 
-echo 🟢 Node.jsが見つかりました
+:: Docker Composeコマンドの検出
+docker-compose version >nul 2>&1
+if !errorlevel! equ 0 (
+    set DOCKER_COMPOSE=docker-compose
+) else (
+    docker compose version >nul 2>&1
+    if !errorlevel! equ 0 (
+        set DOCKER_COMPOSE=docker compose
+    ) else (
+        echo ❌ Docker Composeが見つかりません
+        echo Docker Desktopを最新版にアップデートしてください
+        pause
+        exit /b 1
+    )
+)
+
+:: スクリプトのディレクトリに移動
+cd /d "%~dp0"
+
+:: ポートチェック
+netstat -an | findstr ":3456" | findstr "LISTENING" >nul
+if !errorlevel! equ 0 (
+    echo ⚠️  ポート 3456 が既に使用されています
+    echo 他のアプリケーションを停止してください
+    pause
+    exit /b 1
+)
+
+netstat -an | findstr ":8000" | findstr "LISTENING" >nul
+if !errorlevel! equ 0 (
+    echo ⚠️  ポート 8000 が既に使用されています
+    echo 他のアプリケーションを停止してください
+    pause
+    exit /b 1
+)
+
+:: 既存のコンテナを停止
+echo 🔄 既存のコンテナを確認中...
+%DOCKER_COMPOSE% -f docker-compose.prod.yml down >nul 2>&1
+
+:: ビルドとスタート
+echo 🏗️  アプリケーションをビルド中...
+echo （初回は5-10分かかる場合があります）
 echo.
+echo 📊 進捗状況：
+echo   1/3 📥 イメージのダウンロード中...
+%DOCKER_COMPOSE% -f docker-compose.prod.yml pull
+echo   2/3 🔨 アプリケーションのビルド中...
+%DOCKER_COMPOSE% -f docker-compose.prod.yml build
+echo   3/3 ✅ ビルド完了！
 
-:: バックエンド起動
-echo 🐍 バックエンドを起動中...
-cd /d "%~dp0backend"
+echo.
+echo 🚀 アプリケーションを起動中...
+%DOCKER_COMPOSE% -f docker-compose.prod.yml up -d
 
-:: 仮想環境の作成・アクティベート
-if not exist "venv" (
-    echo 📦 Python仮想環境を作成中...
-    python -m venv venv
-)
+:: ヘルスチェック
+echo ⏳ サービスの起動を確認中...
+set MAX_ATTEMPTS=30
+set ATTEMPT=0
 
-call venv\Scripts\activate.bat
+:healthcheck
+if !ATTEMPT! geq !MAX_ATTEMPTS! goto failed
 
-:: 依存関係のインストール
-echo 📦 必要なライブラリをインストール中...
-pip install -r requirements.txt >nul 2>&1
+curl -s http://localhost:3456 >nul 2>&1
+if !errorlevel! neq 0 goto wait
 
-:: バックエンド起動
-echo 🟢 バックエンドサーバーを起動中...
-start "" python main.py
+curl -s http://localhost:8000/health >nul 2>&1
+if !errorlevel! neq 0 goto wait
 
-cd /d "%~dp0"
-
-:: 少し待機
-echo ⏳ 3秒待機中...
-timeout /t 3 /nobreak >nul
-
-:: フロントエンド起動
-echo 📱 フロントエンドを起動中...
-cd /d "%~dp0frontend"
-
-:: npm install（初回のみ）
-if not exist "node_modules" (
-    echo 📦 フロントエンド依存関係をインストール中...
-    npm install
-)
-
-echo 🟢 フロントエンドサーバーを起動中...
-start "" npm start
-
-cd /d "%~dp0"
-
+:: 成功
 echo.
 echo ✅ 起動完了！
-echo ================================================
-echo 🌐 ブラウザが自動で開くまで少しお待ちください...
-echo 📱 フロントエンド: http://localhost:3456
-echo 🔧 バックエンド: http://localhost:8000
+echo =============================================
+echo 🌐 ブラウザが自動で開きます...
+echo    開かない場合は以下のURLにアクセス：
+echo    http://localhost:3456
 echo.
-echo 💡 アプリを停止したい場合：
-echo    黒い画面（コマンドプロンプト）を閉じてください
+echo 📁 データの保存場所：
+echo    %cd%\data
 echo.
-echo 🎉 月報作成を楽しんでください！
-echo ================================================
+echo 💡 停止方法：
+echo    %DOCKER_COMPOSE% -f docker-compose.prod.yml down
+echo.
+echo 🔄 ログを見る：
+echo    %DOCKER_COMPOSE% -f docker-compose.prod.yml logs -f
+echo =============================================
 
-:: ブラウザを開く（少し遅延させる）
-timeout /t 10 /nobreak >nul
+:: ブラウザを開く
+timeout /t 3 /nobreak >nul
 start "" "http://localhost:3456"
-
+echo.
 pause
+exit /b 0
+
+:wait
+set /a ATTEMPT+=1
+echo|set /p=.
+timeout /t 2 /nobreak >nul
+goto healthcheck
+
+:failed
+echo.
+echo ❌ 起動に失敗しました
+echo.
+echo 🔍 トラブルシューティング：
+echo 1. Docker Desktopが起動しているか確認
+echo 2. ウイルス対策ソフトがDockerをブロックしていないか確認
+echo 3. 以下のコマンドでログを確認：
+echo    %DOCKER_COMPOSE% -f docker-compose.prod.yml logs
+echo.
+echo 📧 サポート: コミュニティ管理者にご連絡ください
+pause
+exit /b 1
