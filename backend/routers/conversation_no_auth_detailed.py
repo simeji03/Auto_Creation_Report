@@ -180,9 +180,15 @@ QUESTION_FLOW = {
             },
             {
                 "id": "monthly_income",
-                "question": "今月の収入はどれくらい？どんな案件でいくら稼げた？",
+                "question": "今月の総収入はいくらでしたか？（合計金額を教えてください）",
                 "type": "text",
-                "example": "例：合計30万円。LP1件5万円、修正案件2万円、継続案件3万円、ディレクション業務20万円。"
+                "example": "例：合計30万円"
+            },
+            {
+                "id": "income_breakdown",
+                "question": "収入の内訳を教えてください（任意）",
+                "type": "text",
+                "example": "例：LP案件2件で10万円、修正案件で6万円、継続案件で14万円"
             }
         ]
     },
@@ -560,16 +566,32 @@ async def generate_report(
         print(f"AI生成エラー: {e}")
         ai_generated_report = await generate_fallback_report(answers)
     
+    # タイトル形式の後処理修正
+    if not ai_generated_report.startswith(f"# 月報：{year_month}"):
+        # 既存のタイトル行を置換
+        ai_generated_report = re.sub(r'^#.*?\n', f'# 月報：{year_month}\n', ai_generated_report, count=1)
+    
     # 数値データの抽出
     work_hours_text = answers.get("work_hours", {}).get("answer", "")
     total_hours = extract_number_from_text(work_hours_text, default=160.0)
     
     income_text = answers.get("monthly_income", {}).get("answer", "")
     received_amount = 0.0
-    for match in re.findall(r'(\d+(?:\.\d+)?)\s*万円', income_text):
-        received_amount += float(match) * 10000
+    
+    # 「合計」または最初の金額を取得（合計しない）
+    if "合計" in income_text:
+        total_match = re.search(r'合計\s*(\d+(?:\.\d+)?)\s*万円', income_text)
+        if total_match:
+            received_amount = float(total_match.group(1)) * 10000
+    else:
+        # 合計がない場合は最初の金額のみ使用
+        first_match = re.search(r'(\d+(?:\.\d+)?)\s*万円', income_text)
+        if first_match:
+            received_amount = float(first_match.group(1)) * 10000
+    
+    # 金額が見つからない場合は0円
     if received_amount == 0:
-        received_amount = extract_number_from_text(income_text, default=350000.0)
+        received_amount = 0.0
     
     sales_text = answers.get("sales_activities", {}).get("answer", "")
     sales_nums = re.findall(r'\d+', sales_text)
@@ -577,16 +599,8 @@ async def generate_report(
     sales_replies = int(sales_nums[1]) if len(sales_nums) > 1 else 0
     sales_meetings = int(sales_nums[2]) if len(sales_nums) > 2 else 0
     
-    # 既存の月報チェック
-    existing_report = db.query(MonthlyReport).filter(
-        MonthlyReport.user_id == DEMO_USER_ID,
-        MonthlyReport.report_month == session.get("report_month", get_report_month())
-    ).first()
-    
-    # 対話型では一意性を確保するためセッションIDを含める
+    # 常に新規月報として作成（重複保存を許可）
     session_id = session.get("session_id", "")
-    session_suffix = session_id.split("_")[-1][:8] if session_id else datetime.now().strftime("%H%M%S")
-    unique_report_month = f"{session.get('report_month', get_report_month())}-conv{session_suffix}"
     
     report_data = {
         "user_id": DEMO_USER_ID,
@@ -609,42 +623,22 @@ async def generate_report(
         "next_month_goals": answers.get("next_month_goals", {}).get("answer", "")
     }
     
-    if existing_report:
-        # 既存の月報を更新
-        for field, value in report_data.items():
-            if field != "user_id" and hasattr(existing_report, field):
-                setattr(existing_report, field, value)
-        
-        db.commit()
-        db.refresh(existing_report)
-        
-        # セッション削除
-        if session_id in conversation_sessions:
-            del conversation_sessions[session_id]
-        
-        return {
-            "message": "月報が更新されました",
-            "report_id": existing_report.id,
-            "report_month": existing_report.report_month,
-            "ai_generated_content": ai_generated_report
-        }
-    else:
-        # 新規月報作成
-        new_report = MonthlyReport(**report_data)
-        db.add(new_report)
-        db.commit()
-        db.refresh(new_report)
-        
-        # セッション削除
-        if session_id in conversation_sessions:
-            del conversation_sessions[session_id]
-        
-        return {
-            "message": "月報が作成されました",
-            "report_id": new_report.id,
-            "report_month": new_report.report_month,
-            "ai_generated_content": ai_generated_report
-        }
+    # 新規月報作成（常に新規として保存）
+    new_report = MonthlyReport(**report_data)
+    db.add(new_report)
+    db.commit()
+    db.refresh(new_report)
+    
+    # セッション削除
+    if session_id in conversation_sessions:
+        del conversation_sessions[session_id]
+    
+    return {
+        "message": "月報が作成されました",
+        "report_id": new_report.id,
+        "report_month": new_report.report_month,
+        "ai_generated_content": ai_generated_report
+    }
 
 async def generate_fallback_report(answers: Dict[str, Any]) -> str:
     """
@@ -661,10 +655,21 @@ async def generate_fallback_report(answers: Dict[str, Any]) -> str:
     
     income_text = answers.get("monthly_income", {}).get("answer", "")
     received_amount = 0.0
-    for match in re.findall(r'(\d+(?:\.\d+)?)\s*万円', income_text):
-        received_amount += float(match) * 10000
+    
+    # 「合計」または最初の金額を取得（合計しない）
+    if "合計" in income_text:
+        total_match = re.search(r'合計\s*(\d+(?:\.\d+)?)\s*万円', income_text)
+        if total_match:
+            received_amount = float(total_match.group(1)) * 10000
+    else:
+        # 合計がない場合は最初の金額のみ使用
+        first_match = re.search(r'(\d+(?:\.\d+)?)\s*万円', income_text)
+        if first_match:
+            received_amount = float(first_match.group(1)) * 10000
+    
+    # 金額が見つからない場合は0円
     if received_amount == 0:
-        received_amount = extract_number_from_text(income_text, default=350000.0)
+        received_amount = 0.0
     
     sales_text = answers.get("sales_activities", {}).get("answer", "")
     sales_nums = re.findall(r'\d+', sales_text)
@@ -750,6 +755,13 @@ async def generate_fallback_report(answers: Dict[str, Any]) -> str:
 ---
 
 以上となります。来月もどうぞよろしくお願いいたします。"""
+    
+    # タイトル形式の後処理修正
+    if not report.startswith(f"# 月報：{year_month}"):
+        # 既存のタイトル行を置換
+        report = re.sub(r'^#.*?\n', f'# 月報：{year_month}\n', report, count=1)
+    
+    return report
 
 @router.get("/session/{session_id}")
 async def get_session_info(session_id: str):

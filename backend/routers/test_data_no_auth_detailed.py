@@ -165,6 +165,11 @@ async def generate_test_report(
             
             ai_generated_report = response.choices[0].message.content
             
+            # タイトル形式の後処理修正
+            if not ai_generated_report.startswith(f"# 月報：{year_month}"):
+                # 既存のタイトル行を置換
+                ai_generated_report = re.sub(r'^#.*?\n', f'# 月報：{year_month}\n', ai_generated_report, count=1)
+            
         except Exception as e:
             print(f"OpenAI API エラー: {e}")
             # エラーの場合はテンプレート版を使用
@@ -315,6 +320,11 @@ async def generate_test_report(
 ---
 
 以上となります。来月もどうぞよろしくお願いいたします。"""
+        
+        # タイトル形式の徎処理修正
+        if not ai_generated_report.startswith(f"# 月報：{year_month}"):
+            # 既存のタイトル行を置換
+            ai_generated_report = re.sub(r'^#.*?\n', f'# 月報：{year_month}\n', ai_generated_report, count=1)
     else:
         # 標準版（APIキーなし）
         ai_generated_report = f"""# 月報：{year_month}
@@ -436,6 +446,11 @@ async def generate_test_report(
 ---
 
 以上となります。来月もどうぞよろしくお願いいたします。"""
+        
+        # タイトル形式の徎処理修正
+        if not ai_generated_report.startswith(f"# 月報：{year_month}"):
+            # 既存のタイトル行を置換
+            ai_generated_report = re.sub(r'^#.*?\n', f'# 月報：{year_month}\n', ai_generated_report, count=1)
     
     # 新規月報作成
     new_report = MonthlyReport(
