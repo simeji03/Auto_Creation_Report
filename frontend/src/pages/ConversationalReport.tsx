@@ -23,6 +23,7 @@ const ConversationalReport: React.FC = () => {
   const [interimText, setInterimText] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
   const [isListening, setIsListening] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
@@ -524,6 +525,7 @@ const ConversationalReport: React.FC = () => {
 
   // 月報の生成
   const generateReport = async (sessionData: any) => {
+    setIsGeneratingReport(true);
     try {
       // API使用状況の表示
       if (hasApiKey) {
@@ -570,6 +572,8 @@ const ConversationalReport: React.FC = () => {
     } catch (error) {
       console.error('月報生成エラー:', error);
       toast.error('月報の生成に失敗しました');
+    } finally {
+      setIsGeneratingReport(false);
     }
   };
 
@@ -590,6 +594,47 @@ const ConversationalReport: React.FC = () => {
     };
     return categoryNames[category] || category;
   };
+
+  // AI生成中のローディング画面
+  if (isGeneratingReport) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="mb-6">
+            <div className="w-16 h-16 mx-auto mb-4 relative">
+              <div className="absolute inset-0 border-4 border-purple-200 rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 border-4 border-purple-600 rounded-full animate-spin border-t-transparent"></div>
+              <div className="absolute inset-2 flex items-center justify-center">
+                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+            </div>
+            <h2 className="text-xl font-bold text-gray-800 mb-2">
+              {hasApiKey ? '🤖 AI月報を生成中...' : '📝 月報を生成中...'}
+            </h2>
+            <p className="text-gray-600 text-sm mb-4">
+              {hasApiKey 
+                ? 'OpenAI GPT-4oが高品質な月報を作成しています。' 
+                : '標準フォーマットで月報を作成しています。'
+              }
+            </p>
+            <div className="text-xs text-gray-500">
+              通常30秒〜1分程度かかります。このまましばらくお待ちください。
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!session) {
     return (
