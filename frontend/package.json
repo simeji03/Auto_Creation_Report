@@ -1,6 +1,6 @@
 {
   "name": "monthly-report-frontend",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "月報作成支援ツール - フロントエンド",
   "main": "index.js",
   "scripts": {

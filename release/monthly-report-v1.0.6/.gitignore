@@ -1,0 +1,117 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/venv/
+venv/
+
+# Build outputs
+frontend/build/
+frontend/dist/
+*.pyc
+__pycache__/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+frontend/*.log
+backend/*.log
+
+# Cache directories
+frontend/node_modules/.cache/
+.cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Package files
+*.tgz
+*.tar.gz
+
+# Coverage
+coverage/
+.nyc_output/
+
+# React specific
+.eslintcache
+
+# Test artifacts
+test_*.js
+test_*.json
+test_*.py
+test_*.sh
+*test*.png
+*.png
+integration-test.js
+complete-integration-test.js
+automation_test.js
+manual-verify.js
+manual_test_script.js
+
+# Specific test data files
+test_generate_report.json
+test_login.json
+test_reg.json
+test_register.json
+test_register_*.json
+test_user.json
+test_api.sh
+test_api_simple.sh
+test_speech_recognition.js
+test_conversational.js
+
+# Debug files
+debug_*.js
+*_debug_*.png
+
+# Server logs
+server.log
+frontend.log
+frontend-server.log
+
+# Docker volumes
+data/
+
+# Backend environment
+backend/.env
+
+# Personal/Test data
+test-env/
+*.backup
+*.bak
+manual-start.sh.backup
+manual-start.bat.backup
+diagnosis_*.txt
+
+# Release files
+release/

@@ -1,0 +1,27 @@
+📊 月報作成支援ツール
+=====================
+
+【起動方法】
+
+🍎 Macの場合:
+   「🚀Mac_ここをダブルクリック.command」をダブルクリック
+
+🪟 Windowsの場合:
+   「🚀Windows_ここを右クリック_管理者として実行.bat」を
+   右クリック→「管理者として実行」を選択
+
+【必要なもの】
+   Docker Desktop（無料）
+   詳しくは docs/DOCKER_INSTALL_GUIDE.md を参照
+
+【トラブル時】
+   docs/TROUBLESHOOTING.md を参照
+
+【フォルダ構成】
+   🚀Mac_ここをダブルクリック.command         ← Macの方
+   🚀Windows_ここを右クリック_管理者として実行.bat  ← Windowsの方
+   はじめにお読みください.txt                    ← このファイル
+   app/                                      ← アプリ本体（触らない）
+   docs/                                     ← 詳しい説明書
+
+楽しい月報作成を！
