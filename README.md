@@ -39,7 +39,7 @@
 ### 📂 ステップ2: アプリをダウンロード
 
 1. **このリンクをクリック**: [**最新版をダウンロード**](https://github.com/simeji03/Auto_Creation_Report/releases/latest)
-2. 「Assets」の下にある **「Source code (zip)」** をクリック
+2. 「Assets」の下にある **「monthly-report-v1.0.7.zip」** をクリック
 3. ダウンロードしたZIPファイルを解凍
 
 ### 🎉 ステップ3: アプリを起動
