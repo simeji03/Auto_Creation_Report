@@ -114,4 +114,5 @@ manual-start.bat.backup
 diagnosis_*.txt
 
 # Release files
-release/
+release/*.db
+*.sqlite*

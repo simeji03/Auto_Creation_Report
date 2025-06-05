@@ -90,7 +90,7 @@ const ConversationalReport: React.FC = () => {
       };
       
       recognitionInstance.onstart = () => {
-        console.log('音声認識が開始されました');
+        // console.log('音声認識が開始されました');
         setIsListening(true);
         setIsRecording(true);
         setInterimText('');
@@ -98,12 +98,12 @@ const ConversationalReport: React.FC = () => {
       };
       
       recognitionInstance.onend = () => {
-        console.log('音声認識が終了しました');
+        // console.log('音声認識が終了しました');
         setInterimText('');
         
         // ユーザーが手動で停止した場合は再開しない
         if (isUserStoppedRef.current) {
-          console.log('ユーザーが停止したため終了');
+          // console.log('ユーザーが停止したため終了');
           setIsListening(false);
           setIsRecording(false);
           return;
@@ -111,7 +111,7 @@ const ConversationalReport: React.FC = () => {
         
         // 自然終了の場合のみ再開
         if (isListening && !isUserStoppedRef.current) {
-          console.log('自動再開を試みます');
+          // console.log('自動再開を試みます');
           setTimeout(() => {
             if (isListening && !isUserStoppedRef.current) {
               try {
@@ -133,7 +133,7 @@ const ConversationalReport: React.FC = () => {
         console.error('音声認識エラー:', event.error);
         
         if (event.error === 'no-speech') {
-          console.log('音声が検出されませんでした - 継続します');
+          // console.log('音声が検出されませんでした - 継続します');
           // no-speechは正常な状態なので継続
           return;
         }
@@ -148,7 +148,7 @@ const ConversationalReport: React.FC = () => {
         }
         
         if (event.error === 'aborted') {
-          console.log('音声認識が中断されました');
+          // console.log('音声認識が中断されました');
           // abortedエラーの場合は状態をクリアして終了
           if (!isUserStoppedRef.current) {
             setIsListening(false);
@@ -158,7 +158,7 @@ const ConversationalReport: React.FC = () => {
         }
         
         // その他のエラーの場合
-        console.log('音声認識エラー - 再開を試みます:', event.error);
+        // console.log('音声認識エラー - 再開を試みます:', event.error);
         if (isListening) {
           setTimeout(() => {
             if (isListening) {
@@ -227,7 +227,7 @@ const ConversationalReport: React.FC = () => {
 
   // 音声認識の停止関数
   const stopRecording = () => {
-    console.log('ユーザーが音声認識を停止しました');
+    // console.log('ユーザーが音声認識を停止しました');
     isUserStoppedRef.current = true;
     if (recognitionInstanceRef.current) {
       try {
@@ -248,7 +248,7 @@ const ConversationalReport: React.FC = () => {
       return;
     }
 
-    console.log('ユーザーが音声認識を開始しました');
+    // console.log('ユーザーが音声認識を開始しました');
     try {
       // 音声認識開始時に現在の確定テキストを保存
       finalTranscriptRef.current = currentAnswer;

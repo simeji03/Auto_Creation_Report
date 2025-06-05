@@ -1,6 +1,13 @@
-# 📊 月報作成支援ツール (Monthly Report Assistant)
+# 📊 月報作成支援ツール (Monthly Report Assistant) v1.0.6
 
 コミュニティメンバーの月報作成時間を大幅に短縮し、より見やすく伝わりやすい月報を簡単に作成できるWebアプリケーションです。
+
+## 🆕 v1.0.6 の主要な改善点
+
+- **✅ 月報の重複制限を削除**: 同じ月の月報を複数作成可能になりました
+- **💰 収入計算の修正**: より正確な収入計算ロジックに改善（デフォルト0円）
+- **📝 タイトル形式の統一**: 「# 月報：YYYY年MM月」形式で統一
+- **🚀 起動の安定性向上**: Docker環境での動作がより確実になりました
 
 ## 🚀 超簡単3ステップ起動（環境構築不要！）
 
@@ -89,6 +96,18 @@
 - **複数フォーマット**: 詳細版・要約版・プレゼン版など
 - **共有機能**: URLでの共有、メール送信対応
 
+## 💻 システム要件
+
+### 最小要件
+- **OS**: Windows 10/11, macOS 10.15+, Ubuntu 18.04+
+- **メモリ**: 4GB RAM（推奨: 8GB以上）
+- **ディスク容量**: 2GB以上の空き容量
+- **ネットワーク**: インターネット接続（AI機能使用時）
+
+### 必要なソフトウェア
+- **Docker Desktop**: Windows/Mac用（[ダウンロード](https://www.docker.com/products/docker-desktop/)）
+- **ブラウザ**: Chrome, Firefox, Safari, Edge（最新版推奨）
+
 ## 🛠️ 技術スタック
 
 - **Frontend**: React 18 + TypeScript + Tailwind CSS
@@ -96,6 +115,7 @@
 - **PDF生成**: ReportLab + Chart.js
 - **AI機能**: OpenAI API (GPT-4)
 - **認証**: JWT + セキュアセッション管理
+- **コンテナ**: Docker + Docker Compose
 
 
 ## 🤖 AI月報機能を使いたい場合（オプション）
@@ -149,7 +169,7 @@
 - **プライバシー保護**: 個人情報の適切な管理
 - **バックアップ**: 定期的なデータバックアップ
 
-## 😵 困った時の解決方法
+## 🆘 トラブルシューティング
 
 ### 🐳 「Dockerが起動していません」と表示される場合
 
@@ -187,10 +207,55 @@
 2. **[OpenAIのサイト](https://platform.openai.com/usage)** でクレジット残高を確認
 3. 残高が0の場合は、クレジットカードで支払い設定をする
 
+### 💾 "データのバックアップ"方法
+
+**大切なデータを失わないための予防策:**
+
+1. **データベースファイルのバックアップ**
+   ```bash
+   # データフォルダ全体をコピー
+   cp -r data/ backup_$(date +%Y%m%d)/
+   ```
+
+2. **月報のエクスポート**
+   - アプリ内で各月報をPDFとして保存
+   - 「レポート一覧」から一括エクスポート
+
+### 🔄 "完全リセット"方法
+
+**すべてがうまくいかない場合の最終手段:**
+
+```bash
+# 1. すべてのコンテナとイメージを削除
+docker system prune -a --volumes
+
+# 2. アプリフォルダを削除して再ダウンロード
+# （バックアップを取ってから実行）
+
+# 3. Docker Desktopを再起動
+
+# 4. 最新版を再ダウンロードして起動
+```
+
 ### 📞 それでも解決しない場合
 
-**GitHub Issues** でお気軽に質問してください：
-[**質問・報告はこちら**](https://github.com/simeji03/Auto_Creation_Report/issues)
+**サポートリソース:**
+
+1. **GitHub Issues（推奨）**: [問題報告・質問](https://github.com/simeji03/Auto_Creation_Report/issues)
+   - エラーメッセージの全文を貼り付け
+   - OS・Dockerバージョンを記録
+   - 再現手順を詳しく説明
+
+2. **よくある質問**: [FAQ Wiki](https://github.com/simeji03/Auto_Creation_Report/wiki)
+
+3. **コミュニティサポート**: [Discussions](https://github.com/simeji03/Auto_Creation_Report/discussions)
+
+**報告時に含めると良い情報:**
+- OS名とバージョン
+- Docker Desktopのバージョン
+- エラーメッセージの全文
+- 実行したコマンドと出力
+- 問題が発生するまでの手順
 
 ## 🤝 コントリビューション
 

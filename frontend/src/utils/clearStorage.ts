@@ -2,7 +2,7 @@
 export const clearAllStorage = () => {
   localStorage.clear();
   sessionStorage.clear();
-  console.log('ストレージをクリアしました');
+  // console.log('ストレージをクリアしました');
 };
 
 // この関数をブラウザのコンソールで実行できるようにする
