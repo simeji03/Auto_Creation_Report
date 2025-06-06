@@ -70,9 +70,25 @@ if !errorlevel! equ 0 (
     exit /b 1
 )
 
-:: 既存のコンテナを停止
+:: 既存のコンテナを停止（より確実なクリーンアップ）
 echo 🔄 既存のコンテナを確認中...
+
+:: 現在のプロジェクトのコンテナを停止
 %DOCKER_COMPOSE% -f docker-compose.prod.yml down >nul 2>&1
+
+:: 古い形式のコンテナも念のため停止（monthly-report-*）
+for /f "tokens=*" %%i in ('docker ps -a --format "{{.Names}}" ^| findstr /r "^monthly-report-"') do (
+    docker stop %%i >nul 2>&1
+    docker rm %%i >nul 2>&1
+)
+
+:: app-* 形式のコンテナも停止（異なるプロジェクト名の場合）
+for /f "tokens=*" %%i in ('docker ps -a --format "{{.Names}}" ^| findstr /r "^app-"') do (
+    docker stop %%i >nul 2>&1
+    docker rm %%i >nul 2>&1
+)
+
+echo ✅ 既存のコンテナをクリーンアップしました
 
 :: ビルドとスタート
 echo 🏗️  アプリケーションをビルド中...

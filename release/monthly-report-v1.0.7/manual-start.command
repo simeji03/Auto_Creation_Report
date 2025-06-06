@@ -32,9 +32,21 @@ fi
 # スクリプトのディレクトリに移動（どこから実行しても動作）
 cd "$(dirname "$0")"
 
-# 既存のコンテナを停止
+# 既存のコンテナを停止（より確実なクリーンアップ）
 echo "🔄 既存のコンテナを確認中..."
+
+# 現在のプロジェクトのコンテナを停止
 $DOCKER_COMPOSE -f docker-compose.prod.yml down 2>/dev/null
+
+# 古い形式のコンテナも念のため停止（monthly-report-*）
+docker ps -a --format "{{.Names}}" | grep -E "^monthly-report-" | xargs -r docker stop 2>/dev/null
+docker ps -a --format "{{.Names}}" | grep -E "^monthly-report-" | xargs -r docker rm 2>/dev/null
+
+# app-* 形式のコンテナも停止（異なるプロジェクト名の場合）
+docker ps -a --format "{{.Names}}" | grep -E "^app-" | xargs -r docker stop 2>/dev/null
+docker ps -a --format "{{.Names}}" | grep -E "^app-" | xargs -r docker rm 2>/dev/null
+
+echo "✅ 既存のコンテナをクリーンアップしました"
 
 # ポート使用チェック
 check_port() {
