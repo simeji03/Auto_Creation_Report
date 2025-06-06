@@ -30,7 +30,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="月報作成支援ツール API",
     description="コミュニティメンバーの月報作成を効率化するAPIサービス",
-    version="1.0.6",
+    version="1.0.7",
     lifespan=lifespan
 )
 

@@ -604,7 +604,7 @@ async def generate_report(
     
     report_data = {
         "user_id": DEMO_USER_ID,
-        "report_month": unique_report_month,
+        "report_month": report_month,
         "current_phase": answers.get("ideal_lifestyle", {}).get("answer", ""),
         "family_status": answers.get("life_changes", {}).get("answer", ""),
         "total_work_hours": total_hours,
